@@ -7,13 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type" : "git",
-    "url" : " https://github.com/ObothA/wimea-listener.git"
-  },  
+    "type": "git",
+    "url": " https://github.com/ObothA/wimea-listener.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "moment": "^2.22.2",
     "mysql": "^2.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0"
   }
 }
