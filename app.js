@@ -3,7 +3,8 @@ const mysql = require("mysql");
 const moment = require("moment");
 const fs = require("fs");
 
-const fileWriter = require("./utils/fileWriter");
+
+const wrtieToFiles = require("./utils/writeTofiles");
 
 var HOST = '0.0.0.0';
 var PORT = 10024;
@@ -16,7 +17,6 @@ const connection = mysql.createConnection({
     database: "wdrDb"
 });
 
-
 //connect to the db
 connection.connect((err) => {
     if (err) {
@@ -26,10 +26,6 @@ connection.connect((err) => {
         console.log('Connection Established!');
     }
 });
-
-
-
-
 
 // Create a server instance, and chain the listen function to it
 // The function passed to net.createServer() becomes the event handler for the 'connection' event
@@ -69,61 +65,8 @@ net.createServer(function (sock) {
 console.log('Server listening on ' + HOST + ':' + PORT);
 
 
-/** function to write data to files */
-function wrtieToFiles(dataToWrite) {
-    //** ***************************** */
-    const path = "/var/www/html/awsmonitor/aws-monitor/public/stationsData/";
-    if (dataToWrite.includes("byd-1")) {
-        fileWriter(`${path}buyende_1.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("byd-2")) {
-        fileWriter(`${path}buyende_2.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("ebb")) {
-        fileWriter(`${path}entebbe.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("jja")) {
-        fileWriter(`${path}jinja.dat`, dataToWrite);
-    }
-
-
-    else if (dataToWrite.includes("klr")) {
-        fileWriter(`${path}kaliro.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("kml")) {
-        fileWriter(`${path}kamuli.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("lwg")) {
-        fileWriter(`${path}lwengo.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("mak")) {
-        fileWriter(`${path}makerere.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("myg")) {
-        fileWriter(`${path}mayuge.dat`, dataToWrite);
-    }
-
-    else if (dataToWrite.includes("mbd")) {
-        fileWriter(`${path}mubende.dat`, dataToWrite);
-    }
-
-    // test gateway
-    else if (dataToWrite.includes("test")) {
-        fileWriter(`${path}test.dat`, dataToWrite);
-    }
-
-}
-
 
 var no = 0;
-
 function receiveData(packet) {
 
     /*******/
