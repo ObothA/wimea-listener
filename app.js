@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const moment = require("moment");
 const fs = require("fs");
 
-// const fileWriter = require("./utils/fileWriter");
+const fileWriter = require("./utils/fileWriter");
 
 var HOST = '0.0.0.0';
 var PORT = 10024;
