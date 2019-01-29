@@ -1,7 +1,6 @@
 const net = require('net');
 const mysql = require("mysql");
 const moment = require("moment");
-const fs = require("fs");
 
 
 const wrtieToFiles = require("./utils/writeTofiles");
