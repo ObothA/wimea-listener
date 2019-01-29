@@ -3,6 +3,8 @@ const mysql = require("mysql");
 const moment = require("moment");
 const fs = require("fs");
 
+// const fileWriter = require("./utils/fileWriter");
+
 var HOST = '0.0.0.0';
 var PORT = 10024;
 
@@ -34,20 +36,18 @@ connection.connect((err) => {
 // The sock object the callback function receives UNIQUE for each connection
 net.createServer(function (sock) {
 
-
-    // We have a connection - a socket object is assigned to the connection automatically
+    /* We have a connection - a socket object is assigned to the connection automatically */
     console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
 
-    // Add a 'data' event handler to this instance of socket
+    /* Add a 'data' event handler to this instance of socket */
     sock.on('data', function (data) {
         // method that writes to db below
         receiveData(data.toString());
-	/* method that writes to files */
+        /* method that writes to files */
         wrtieToFiles(data.toString());
-
     });
 
-    // Add a 'close' event handler to this instance of socket
+    /***  Add a 'close' event handler to this instance of socket */
     sock.on('end', function (data) {
         console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
     });
@@ -70,65 +70,55 @@ console.log('Server listening on ' + HOST + ':' + PORT);
 
 
 /** function to write data to files */
-function wrtieToFiles(dataToWrite){
+function wrtieToFiles(dataToWrite) {
     //** ***************************** */
     const path = "/var/www/html/awsmonitor/aws-monitor/public/stationsData/";
-    if(dataToWrite.includes("byd-1")){
-        fileWriter(`${path}buyende_1.dat`,dataToWrite);
+    if (dataToWrite.includes("byd-1")) {
+        fileWriter(`${path}buyende_1.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("byd-2")){
-        fileWriter(`${path}buyende_2.dat`,dataToWrite);
+    else if (dataToWrite.includes("byd-2")) {
+        fileWriter(`${path}buyende_2.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("ebb")){
-        fileWriter(`${path}entebbe.dat`,dataToWrite);
+    else if (dataToWrite.includes("ebb")) {
+        fileWriter(`${path}entebbe.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("jja")){
-        fileWriter(`${path}jinja.dat`,dataToWrite);
+    else if (dataToWrite.includes("jja")) {
+        fileWriter(`${path}jinja.dat`, dataToWrite);
     }
 
 
-    else if(dataToWrite.includes("klr")){
-        fileWriter(`${path}kaliro.dat`,dataToWrite);
+    else if (dataToWrite.includes("klr")) {
+        fileWriter(`${path}kaliro.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("kml")){
-        fileWriter(`${path}kamuli.dat`,dataToWrite);
+    else if (dataToWrite.includes("kml")) {
+        fileWriter(`${path}kamuli.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("lwg")){
-        fileWriter(`${path}lwengo.dat`,dataToWrite);
+    else if (dataToWrite.includes("lwg")) {
+        fileWriter(`${path}lwengo.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("mak")){
-        fileWriter(`${path}makerere.dat`,dataToWrite);
+    else if (dataToWrite.includes("mak")) {
+        fileWriter(`${path}makerere.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("myg")){
-        fileWriter(`${path}mayuge.dat`,dataToWrite);
+    else if (dataToWrite.includes("myg")) {
+        fileWriter(`${path}mayuge.dat`, dataToWrite);
     }
 
-    else if(dataToWrite.includes("mbd")){
-        fileWriter(`${path}mubende.dat`,dataToWrite);
+    else if (dataToWrite.includes("mbd")) {
+        fileWriter(`${path}mubende.dat`, dataToWrite);
     }
 
     // test gateway
-    else if(dataToWrite.includes("test")){
-        fileWriter(`${path}test.dat`,dataToWrite);
+    else if (dataToWrite.includes("test")) {
+        fileWriter(`${path}test.dat`, dataToWrite);
     }
 
-}
-
-//*function that does actual writing to the files* */
-function fileWriter(path, dataToWrite){
-    fs.appendFile(path, dataToWrite, (errorAppending) => {
-        if(errorAppending){
-            console.log("append error in appendFile method ===>");
-            console.error(errorAppending);
-        } 
-    })
 }
 
 
@@ -195,11 +185,11 @@ function receiveData(packet) {
                 if (date && time) {
                     RTC_T = `${date[0]},${time[0]}`;
                     /* convert utc time to ugandan time */
-                    if(UTC_TZ){
-                        var momentDate = moment(`${date[0]} ${time[0]}`,"YYYY-MM-DD HH:mm:ss");
-                        time = momentDate.add(3,"hours").toString().split(" ")[4];
-			RTC_T = `${date[0]},${time}`;
-			UTC_TZ = null;  // to avoid another operation down
+                    if (UTC_TZ) {
+                        var momentDate = moment(`${date[0]} ${time[0]}`, "YYYY-MM-DD HH:mm:ss");
+                        time = momentDate.add(3, "hours").toString().split(" ")[4];
+                        RTC_T = `${date[0]},${time}`;
+                        UTC_TZ = null;  // to avoid another operation down
                     }
                 }
             }
@@ -217,13 +207,13 @@ function receiveData(packet) {
                             }
                         });
 
-			/* convert utc time to ugandan time */
-                    	if(UTC_TZ && RTC_T){
-				var onlyDate = RTC_T.split(",")[0];
-                        	var momentDate = moment(`${RTC_T.replace(",", " ")}`,"YYYY-MM-DD HH:mm:ss");
-                        	var timeOnly = momentDate.add(3,"hours").toString().split(" ")[4];
-                        	RTC_T = `${onlyDate},${timeOnly}`;
-                    	}
+                        /* convert utc time to ugandan time */
+                        if (UTC_TZ && RTC_T) {
+                            var onlyDate = RTC_T.split(",")[0];
+                            var momentDate = moment(`${RTC_T.replace(",", " ")}`, "YYYY-MM-DD HH:mm:ss");
+                            var timeOnly = momentDate.add(3, "hours").toString().split(" ")[4];
+                            RTC_T = `${onlyDate},${timeOnly}`;
+                        }
 
                     }
 
@@ -601,7 +591,7 @@ function receiveData(packet) {
             SOC = null;
             V_MCRTC_T = null;
             V_AD2 = null;
-	    UTC_TZ = null;
+            UTC_TZ = null;
             /**********/
         }
     });
