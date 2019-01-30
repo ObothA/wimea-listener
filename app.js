@@ -1,3 +1,7 @@
+/* eslint-disable newline-per-chained-call */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
 
 const net = require('net');
 const mysql = require('mysql');
@@ -360,7 +364,7 @@ function receiveData(packet) {
           V_AD2,
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5
+          hoursSinceEpoch: new Date().getTime() / 36e5,
 
         };
 
@@ -393,7 +397,7 @@ function receiveData(packet) {
           UP_TIME,
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5
+          hoursSinceEpoch: new Date().getTime() / 36e5,
         };
 
 
@@ -420,7 +424,7 @@ function receiveData(packet) {
           P_MS5611,
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5
+          hoursSinceEpoch: new Date().getTime() / 36e5,
 
         };
 
@@ -448,7 +452,7 @@ function receiveData(packet) {
         REPS,
         DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
         TIME: new Date().toString().split(' ')[4],
-        hoursSinceEpoch: new Date().getTime() / 36e5
+        hoursSinceEpoch: new Date().getTime() / 36e5,
 
       };
 
