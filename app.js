@@ -136,7 +136,7 @@ function receiveData(packet) {
             UTC_TZ = null; // to avoid another operation down
           }
 
-          if (RTC_T.length > 19) {
+          if (RTC_T && RTC_T.length > 19) {
             /** if the data is corrupt, clean */
             RTC_T = RTC_T.slice(-19);
           }
@@ -164,7 +164,7 @@ function receiveData(packet) {
               RTC_T = `${onlyDate},${timeOnly}`;
             }
 
-            if (RTC_T.length > 19) {
+            if (RTC_T && RTC_T.length > 19) {
               /** if the data is corrupt, clean */
               RTC_T = RTC_T.slice(-19);
             }
