@@ -182,7 +182,7 @@ function receiveData(packet) {
             NAME = item.split('=')[1];
           }
 
-          if (RTC_T === null) {
+          if (!RTC_T) {
             console.log(`culprit of null rtc is: ${NAME}`);
           }
 
