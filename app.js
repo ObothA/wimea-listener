@@ -135,10 +135,11 @@ function receiveData(packet) {
             RTC_T = `${date[0]},${time}`;
             UTC_TZ = null; // to avoid another operation down
           }
-          /** convert rtc to mysql date time format */
-          console.log();
-          console.log(new Date(`${date[0]},${time}`).toDateString(), new Date(`${date[0]},${time}`));
-          console.log();
+
+          if (RTC_T.length > 19) {
+            /** if the data is corrupt, clean */
+            RTC_T = RTC_T.slice(-19);
+          }
         }
       }
 
@@ -163,10 +164,10 @@ function receiveData(packet) {
               RTC_T = `${onlyDate},${timeOnly}`;
             }
 
-            /** convert rtc to mysql date time format */
-            console.log();
-            console.log(new Date(RTC_T).toDateString(), new Date(RTC_T));
-            console.log();
+            if (RTC_T.length > 19) {
+              /** if the data is corrupt, clean */
+              RTC_T = RTC_T.slice(-19);
+            }
           }
 
           if (item.includes('NAME')) {
