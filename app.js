@@ -182,6 +182,9 @@ function receiveData(packet) {
             NAME = item.split('=')[1];
           }
 
+          if (RTC_T === null) {
+            console.log(`culprit of null rtc is: ${NAME}`);
+          }
 
           if (item.includes('E64')) {
             E64 = item.split('=')[1];
