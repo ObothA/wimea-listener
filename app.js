@@ -140,7 +140,7 @@ function receiveData(packet) {
             /** if the data is corrupt, clean */
             RTC_T = RTC_T.slice(-19);
           } else {
-            console.log('** somehow rtc is null!');
+            console.log('** somehow rtc from pi is null!');
           }
         }
       }
