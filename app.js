@@ -160,7 +160,7 @@ function receiveData(packet) {
               var onlyDate = RTC_T.split(',')[0];
               var momentDate = moment(`${RTC_T.replace(',', ' ')}`, 'YYYY-MM-DD HH:mm:ss');
               var timeOnly = momentDate.add(3, 'hours').toString().split(' ')[4];
-              RTC_T = new Date(`${onlyDate},${timeOnly}`);
+              RTC_T = `${onlyDate},${timeOnly}`;
             }
 
             /** convert rtc to mysql date time format */
