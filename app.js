@@ -139,7 +139,7 @@ function receiveData(packet) {
           if (RTC_T && RTC_T.length > 19) {
             /** if the data is corrupt, clean */
             RTC_T = RTC_T.slice(-19);
-          } else {
+          } else if (!RTC_T) {
             console.log('** somehow rtc from pi is null!');
           }
         }
@@ -169,7 +169,7 @@ function receiveData(packet) {
             if (RTC_T && RTC_T.length > 19) {
               /** if the data is corrupt, clean */
               RTC_T = RTC_T.slice(-19);
-            } else {
+            } else if (!RTC_T) {
               console.log('** somehow rtc is null!');
             }
           }
@@ -183,6 +183,7 @@ function receiveData(packet) {
           }
 
           if (!RTC_T) {
+            /** console log the node with a null rtc */
             console.log(`culprit of null rtc is: ${NAME}`);
           }
 
