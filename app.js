@@ -139,6 +139,8 @@ function receiveData(packet) {
           if (RTC_T && RTC_T.length > 19) {
             /** if the data is corrupt, clean */
             RTC_T = RTC_T.slice(-19);
+          } else {
+            console.log('** somehow rtc is null!');
           }
         }
       }
@@ -167,6 +169,8 @@ function receiveData(packet) {
             if (RTC_T && RTC_T.length > 19) {
               /** if the data is corrupt, clean */
               RTC_T = RTC_T.slice(-19);
+            } else {
+              console.log('** somehow rtc is null!');
             }
           }
 
