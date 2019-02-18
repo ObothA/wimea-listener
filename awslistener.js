@@ -463,6 +463,7 @@ function receiveData(packet) {
 
       // object to insert into the general table
       const general_table = {
+        RTC_T,
         stationname,
         V_BAT,
         SOC,
