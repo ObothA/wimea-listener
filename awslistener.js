@@ -477,7 +477,8 @@ function receiveData(packet) {
 
 
       console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
-      if (NAME) {
+      if (NAME && V_BAT && SOC) {
+        console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
         // query to insert into the general table
         connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
           if (err) {
