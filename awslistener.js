@@ -140,7 +140,7 @@ function receiveData(packet) {
             /** if the data is corrupt, clean */
             RTC_T = RTC_T.slice(-19);
           } else if (!RTC_T) {
-            console.log('** somehow rtc from pi is null!');
+            // console.log('** somehow rtc from pi is null!');
           }
         }
       }
@@ -170,7 +170,7 @@ function receiveData(packet) {
               /** if the data is corrupt, clean */
               RTC_T = RTC_T.slice(-19);
             } else if (!RTC_T) {
-              console.log('** somehow rtc is null!');
+              // console.log('** somehow rtc is null!');
             }
           }
 
@@ -184,7 +184,7 @@ function receiveData(packet) {
 
           if (!RTC_T) {
             /** console log the node with a null rtc */
-            console.log(`culprit of null rtc is: ${NAME}`);
+            // console.log(`culprit of null rtc is: ${NAME}`);
           }
 
           if (item.includes('E64')) {
@@ -476,6 +476,7 @@ function receiveData(packet) {
       };
 
 
+      console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
       if (NAME) {
         // query to insert into the general table
         connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
