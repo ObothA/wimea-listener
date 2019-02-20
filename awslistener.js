@@ -476,7 +476,7 @@ function receiveData(packet) {
       };
 
       console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
-      if ((NAME && V_BAT && SOC) || REPS) {
+      if ((NAME && V_BAT && SOC) || (NAME && REPS)) {
         console.log();
         console.log('this is inside')
         console.log(`V_BAT => ${V_BAT}  SOC => ${SOC} REPS => ${REPS}` );
