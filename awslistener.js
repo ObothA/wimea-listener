@@ -476,7 +476,6 @@ function receiveData(packet) {
       };
 
 
-      console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
       if (NAME && V_BAT && SOC) {
         console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
         // query to insert into the general table
