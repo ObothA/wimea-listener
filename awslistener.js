@@ -476,10 +476,10 @@ function receiveData(packet) {
       };
 
       console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
-      if (NAME && V_BAT && SOC) {
+      if ((NAME && V_BAT && SOC) || REPS) {
         console.log();
         console.log('this is inside')
-        console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
+        console.log(`V_BAT => ${V_BAT}  SOC => ${SOC} REPS => ${REPS}` );
         console.log();
         // query to insert into the general table
         connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
