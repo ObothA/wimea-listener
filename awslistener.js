@@ -461,8 +461,10 @@ function receiveData(packet) {
         if (!isNaN(stationNumber)) {
           stationname = `${stationname}-${stationNumber}`;
         }
-        console.log(NAME);
-        console.log(stationname);
+        if (NAME.includes('byd')) {
+          console.log(NAME);
+          console.log(stationname);
+        }
       } else if (NAME && NAME.includes('_')) {
         stationname = NAME.split('_')[0];
         var stationNumber2 = NAME.split('_')[1];
