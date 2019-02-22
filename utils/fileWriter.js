@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function fileWriter(path, dataToWrite) {
-  // console.log(' ===> fileWriter called <====');
+  console.log(' ===> fileWriter called <====');
   fs.appendFile(path, dataToWrite, (errorAppending) => {
     if (errorAppending) {
       console.log('append error in appendFile method ===>');

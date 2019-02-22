@@ -43,7 +43,6 @@ net.createServer((sock) => {
     // method that writes to db below
     receiveData(data.toString());
     /* method that writes to files */
-    wrtieToFiles(data.toString());
   });
 
   /** *  Add a 'close' event handler to this instance of socket */
@@ -114,6 +113,9 @@ function receiveData(packet) {
 
   packetArray.map((line) => {
     if (line.trim()) {
+      /* write line by line to files */
+      wrtieToFiles(line);
+
       if (line.includes('TZ=UTC')) {
         UTC_TZ = true;
       }
@@ -460,10 +462,6 @@ function receiveData(packet) {
         var stationNumber = NAME.split('-')[1];
         if (!isNaN(stationNumber)) {
           stationname = `${stationname}-${stationNumber}`;
-        }
-        if (NAME.includes('byd')) {
-          console.log(NAME);
-          console.log(stationname);
         }
       } else if (NAME && NAME.includes('_')) {
         stationname = NAME.split('_')[0];
