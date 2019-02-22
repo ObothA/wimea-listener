@@ -457,8 +457,16 @@ function receiveData(packet) {
       var stationname;
       if (NAME && NAME.includes('-')) {
         stationname = NAME.split('-')[0];
+        var stationNumber = NAME.split('-')[1];
+        if (!isNaN(stationNumber)) {
+          stationname = `${stationname}-${stationNumber}`;
+        }
       } else if (NAME && NAME.includes('_')) {
         stationname = NAME.split('_')[0];
+        var stationNumber2 = NAME.split('_')[1];
+        if (!isNaN(stationNumber2)) {
+          stationname = `${stationname}_${stationNumber2}`;
+        }
       }
 
       // object to insert into the general table
@@ -475,12 +483,7 @@ function receiveData(packet) {
 
       };
 
-      console.log(`V_BAT => ${V_BAT}  SOC => ${SOC}`);
       if ((NAME && V_BAT && SOC) || (NAME && REPS)) {
-        console.log();
-        console.log('this is inside')
-        console.log(`V_BAT => ${V_BAT}  SOC => ${SOC} REPS => ${REPS}` );
-        console.log();
         // query to insert into the general table
         connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
           if (err) {
