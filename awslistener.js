@@ -494,6 +494,21 @@ function receiveData(packet) {
         });
       }
 
+      const elec = {
+        RTC_T,
+        V_BAT,
+        SOC,
+        stationname
+      };
+
+      if(NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')){
+        // query to insert into the elec
+        connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      }
 
       // reinitialise the variables
       /** *** */
