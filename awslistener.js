@@ -13,16 +13,6 @@ const wrtieToFiles = require('./utils/writeTofiles');
 const HOST = '0.0.0.0';
 const PORT = 10024;
 
-// connect to the db
-connection.connect((err) => {
-  if (err) {
-    console.log(err);
-    console.log('error connecting to the db!');
-  } else {
-    console.log('Connection Established!');
-  }
-});
-
 // Create a server instance, and chain the listen function to it
 // The function passed to net.createServer() becomes the event handler for the 'connection' event
 // The sock object the callback function receives UNIQUE for each connection
@@ -63,6 +53,16 @@ function receiveData(packet) {
     user: 'jmuhumuza',
     password: 'joshua',
     database: 'wdrDb',
+  });
+
+  // connect to the db
+  connection.connect((err) => {
+    if (err) {
+      console.log(err);
+      console.log('error connecting to the db!');
+    } else {
+      console.log('Connection Established!');
+    }
   });
 
   /** **** */
