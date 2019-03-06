@@ -13,14 +13,6 @@ const wrtieToFiles = require('./utils/writeTofiles');
 const HOST = '0.0.0.0';
 const PORT = 10024;
 
-// db init connetion
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'jmuhumuza',
-  password: 'joshua',
-  database: 'wdrDb',
-});
-
 // connect to the db
 connection.connect((err) => {
   if (err) {
@@ -65,6 +57,14 @@ console.log(`Server listening on ${HOST}:${PORT}`);
 
 
 function receiveData(packet) {
+  // db init connetion
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'jmuhumuza',
+    password: 'joshua',
+    database: 'wdrDb',
+  });
+
   /** **** */
   /* variables to insert into the db */
   /** *** */
@@ -114,7 +114,7 @@ function receiveData(packet) {
   packetArray.map((line) => {
     if (line.trim()) {
       /* write line by line to files */
-      wrtieToFiles(line);
+      wrtieToFiles(`${line}\n`);
 
       if (line.includes('TZ=UTC')) {
         UTC_TZ = true;
