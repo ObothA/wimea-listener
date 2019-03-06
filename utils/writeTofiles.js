@@ -53,6 +53,10 @@ function wrtieToFiles(dataToWrite) {
     fileWriter(`${path}uoj.dat`, dataToWrite);
   }
 
+  else if (dataToWrite.includes('fos')) {
+    fileWriter(`${path}fos.dat`, dataToWrite);
+  }
+
   // test gateway
   else if (dataToWrite.includes('test')) {
     fileWriter(`${path}test.dat`, dataToWrite);
