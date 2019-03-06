@@ -498,10 +498,10 @@ function receiveData(packet) {
         RTC_T,
         V_BAT,
         SOC,
-        stationname
+        stationname,
       };
 
-      if(NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')){
+      if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
         // query to insert into the elec
         connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
           if (err) {
@@ -546,4 +546,12 @@ function receiveData(packet) {
     }
   });
   // close outter map
+
+  connection.end((err) => {
+    // The connection is terminated now
+    console.log('=====================================================');
+    console.log('connection has been closed albeit with an error');
+    console.log('=====================================================');
+    console.log(err);
+  });
 }
