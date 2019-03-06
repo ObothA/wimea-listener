@@ -61,7 +61,7 @@ function receiveData(packet) {
       console.log(err);
       console.log('error connecting to the db!');
     } else {
-      console.log('Connection Established!');
+      console.log('Connection to the db established!');
     }
   });
 
@@ -549,9 +549,11 @@ function receiveData(packet) {
 
   connection.end((err) => {
     // The connection is terminated now
-    console.log('=====================================================');
-    console.log('connection has been closed albeit with an error');
-    console.log('=====================================================');
-    console.log(err);
+    if (err) {
+      console.log('=====================================================');
+      console.log('connection has been closed albeit with an error');
+      console.log('=====================================================');
+      console.log(err);
+    }
   });
 }
