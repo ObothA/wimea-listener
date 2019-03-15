@@ -98,6 +98,8 @@ function receiveData(packet) {
   var V_MCRTC_T = null;
   var V_AD2 = null;
   var UTC_TZ = null;
+  var stationname = null;
+  var stationID = null;
 
   /** variables to use  through function */
   var packetArray = [];
@@ -331,10 +333,60 @@ function receiveData(packet) {
       });
       // close inner map
 
+      /** responsible for linking */
+      if (NAME && NAME.includes('-')) {
+        stationname = NAME.split('-')[0];
+        var stationNumber = NAME.split('-')[1];
+        if (!isNaN(stationNumber)) {
+          stationname = `${stationname}-${stationNumber}`;
+        }
+      } else if (NAME && NAME.includes('_')) {
+        stationname = NAME.split('_')[0];
+        var stationNumber2 = NAME.split('_')[1];
+        if (!isNaN(stationNumber2)) {
+          stationname = `${stationname}_${stationNumber2}`;
+        }
+      }
+
+      const QUERY = `SELECT station_id FROM stations WHERE StationName=${stationname}`;
+      connection.query(QUERY, (queryError, result, fields) => {
+        if (queryError) {
+          throw queryError;
+        } else if (result.length > 0) {
+          console.log(result);
+          stationID = result[0];
+        } else {
+          const STATION_NAMES = {
+            myg: 54,
+            makg3: 53,
+            kml: 52,
+            jja: 50,
+            'byd-2': 49,
+            'byd-1': 48,
+            /** duplicates to bend the rules for naming errors */
+            jjag: 50,
+            mak: 53,
+            ebbg3: 52,
+            makg2: 53,
+            fos: 53,
+            fios: 53,
+            byd: 48,
+            jjag3: 50,
+            mygg3: 54,
+            jnj: 50,
+          };
+
+          stationID = STATION_NAMES[stationname];
+        }
+      });
+
+      /** responsible for linking */
+
 
       if (NAME && NAME.toLowerCase().includes('2m')) {
         // object for the 2meter node
         const node_2m = {
+          stationID,
           RTC_T,
           NAME,
           E64,
@@ -385,7 +437,7 @@ function receiveData(packet) {
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
           hoursSinceEpoch: new Date().getTime() / 36e5,
-
+          stationID,
         };
 
         // query to insert into the 10 meter table
@@ -418,6 +470,7 @@ function receiveData(packet) {
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
           hoursSinceEpoch: new Date().getTime() / 36e5,
+          stationID,
         };
 
 
@@ -445,7 +498,7 @@ function receiveData(packet) {
           DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
           TIME: new Date().toString().split(' ')[4],
           hoursSinceEpoch: new Date().getTime() / 36e5,
-
+          stationID,
         };
 
         // query to insert into the sink table
@@ -456,20 +509,6 @@ function receiveData(packet) {
         });
       }
 
-      var stationname;
-      if (NAME && NAME.includes('-')) {
-        stationname = NAME.split('-')[0];
-        var stationNumber = NAME.split('-')[1];
-        if (!isNaN(stationNumber)) {
-          stationname = `${stationname}-${stationNumber}`;
-        }
-      } else if (NAME && NAME.includes('_')) {
-        stationname = NAME.split('_')[0];
-        var stationNumber2 = NAME.split('_')[1];
-        if (!isNaN(stationNumber2)) {
-          stationname = `${stationname}_${stationNumber2}`;
-        }
-      }
 
       // object to insert into the general table
       const general_table = {
@@ -482,7 +521,7 @@ function receiveData(packet) {
         DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
         TIME: new Date().toString().split(' ')[4],
         hoursSinceEpoch: new Date().getTime() / 36e5,
-
+        stationID,
       };
 
       if ((NAME && V_BAT && SOC) || (NAME && REPS)) {
@@ -499,6 +538,8 @@ function receiveData(packet) {
         V_BAT,
         SOC,
         stationname,
+        NAME,
+        stationID,
       };
 
       if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
@@ -542,6 +583,8 @@ function receiveData(packet) {
       V_MCRTC_T = null;
       V_AD2 = null;
       UTC_TZ = null;
+      stationname = null;
+      stationID = null;
       /** ******* */
     }
   });
