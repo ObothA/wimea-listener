@@ -129,7 +129,6 @@ function receiveData(packet) {
 
       /** ** this is intended to handle pi data **** */
       if (!line.includes('RTC_T')) {
-        console.log('line includes rtc');
         var datereg = RegExp('([2][0-9]{3})[-]([0-9]{2})[-]([0-9]{2})', 'g');
         var timereg = RegExp('([0-9]{2})[\\:]([0-9]{2})[\\:]([0-9]{2})', 'g');
 
@@ -157,6 +156,7 @@ function receiveData(packet) {
 
       /** * end of handle pi data** */
       line.split(' ').map((item) => {
+        console.log(item);
         item = item.replace('[', '');
         item = item.replace(']', '');
         if (item) {
