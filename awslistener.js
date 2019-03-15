@@ -121,7 +121,7 @@ function receiveData(packet) {
     console.log(line);
     if (line.trim()) {
       /* write line by line to files */
-      wrtieToFiles(`${line}\n`);
+      wrtieToFiles(`${line}\r\n`);
 
       if (line.includes('TZ=UTC')) {
         masterObject.UTC_TZ = true;
