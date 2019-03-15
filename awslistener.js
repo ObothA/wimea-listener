@@ -156,16 +156,16 @@ function receiveData(packet) {
 
       /** * end of handle pi data** */
       line.split(' ').map((item) => {
-        console.log(item);
         item = item.replace('[', '');
         item = item.replace(']', '');
         if (item) {
-          console.log(item);
           if (item.includes('RTC_T')) {
             date = item.split('=');
             date.map((x) => {
               if (x.includes(':')) {
                 masterObject.RTC_T = x;
+                console.log(x);
+                console.log(masterObject.RTC_T);
               }
             });
 
