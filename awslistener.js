@@ -355,7 +355,6 @@ function receiveData(packet) {
         if (queryError) {
           throw queryError;
         } else if (result.length > 0) {
-          console.log(result[0].station_id);
           masterObject.stationID = result[0].station_id;
         } else {
           const STATION_NAMES = {

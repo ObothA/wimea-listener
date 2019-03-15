@@ -202,15 +202,15 @@ const insertIntoDb = (masterObject,connection) => {
     });
   }
   
-  connection.end((err) => {
-    // The connection is terminated now
-    if (err) {
-      console.log('=====================================================');
-      console.log('connection has been closed albeit with an error');
-      console.log('=====================================================');
-      console.log(err);
-    }
-  });
+//   connection.end((err) => {
+//     // The connection is terminated now
+//     if (err) {
+//       console.log('=====================================================');
+//       console.log('connection has been closed albeit with an error');
+//       console.log('=====================================================');
+//       console.log(err);
+//     }
+//   });
 };
 
 
