@@ -116,9 +116,9 @@ function receiveData(packet) {
   }
 
   packetArray.map((line) => {
-    console.log();
-    console.log('line == ');
-    console.log(line);
+    // console.log();
+    // console.log('line == ');
+    // console.log(line);
     if (line.trim()) {
       /* write line by line to files */
       wrtieToFiles(`${line}\r\n`);
@@ -186,6 +186,8 @@ function receiveData(packet) {
 
           if (item.includes('NAME')) {
             masterObject.NAME = item.split('=')[1];
+            console.log(item.split('=')[1]);
+            console.log(masterObject.NAME);
           }
 
           if (item.includes('TXT')) {
