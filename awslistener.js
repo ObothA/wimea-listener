@@ -383,6 +383,9 @@ function receiveData(packet) {
           masterObject.stationID = STATION_NAMES[masterObject.stationname];
         }
 
+        console.log();
+        console.log('master object');
+        console.log(masterObject);
         insertIntoDb(masterObject, connection);
       });
 
