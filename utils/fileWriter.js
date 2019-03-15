@@ -13,3 +13,11 @@ function fileWriter(path, dataToWrite) {
 module.exports = fileWriter;
 
 /* function that does actual writing to the files* */
+
+// connection.query('SELECT 1',
+//     (function(ix){
+//         return function(err, rows, fields) {
+//             console.log("ix="+ix);
+//             console.log(rows);
+//         };
+//     })(ix));
