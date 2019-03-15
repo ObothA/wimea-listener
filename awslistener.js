@@ -192,7 +192,6 @@ function receiveData(packet) {
           if (item.includes('TXT')) {
             masterObject.NAME = item.split('=')[1];
             // console.log(item.split('=')[1]);
-            console.log(masterObject);
           }
 
           if (!masterObject.RTC_T) {
@@ -341,7 +340,7 @@ function receiveData(packet) {
         }
       });
       // close inner map
-
+      console.log(masterObject);
       /** responsible for linking */
       if (masterObject.NAME && masterObject.NAME.includes('-')) {
         masterObject.stationname = masterObject.NAME.split('-')[0];
