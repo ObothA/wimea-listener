@@ -340,7 +340,7 @@ function receiveData(packet) {
         }
       });
       // close inner map
-      console.log(masterObject);
+    
       /** responsible for linking */
       if (masterObject.NAME && masterObject.NAME.includes('-')) {
         masterObject.stationname = masterObject.NAME.split('-')[0];
@@ -356,6 +356,7 @@ function receiveData(packet) {
         }
       }
 
+      console.log(masterObject);
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
       connection.query(QUERY, (queryError, result, fields) => {
         if (queryError) {
