@@ -385,7 +385,7 @@ function receiveData(packet) {
 
           masterObject.stationID = STATION_NAMES[masterObject.stationname];
         }
-        console.log(masterObject);
+        console.log(this.masterObject);
         // console.log();
         // console.log('master object');
         // console.log(masterObject);
