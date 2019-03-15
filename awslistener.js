@@ -48,6 +48,9 @@ console.log(`Server listening on ${HOST}:${PORT}`);
 
 
 function receiveData(packet) {
+  console.log();
+  console.log(packet);
+
   // db init connetion
   const connection = mysql.createConnection({
     host: 'localhost',
@@ -116,6 +119,7 @@ function receiveData(packet) {
   }
 
   packetArray.map((line) => {
+    console.log(line);
     if (line.trim()) {
       /* write line by line to files */
       wrtieToFiles(`${line}\n`);
