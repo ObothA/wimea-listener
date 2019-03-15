@@ -159,6 +159,7 @@ function receiveData(packet) {
         item = item.replace('[', '');
         item = item.replace(']', '');
         if (item) {
+          console.log(item);
           if (item.includes('RTC_T')) {
             date = item.split('=');
             date.map((x) => {
