@@ -356,7 +356,6 @@ function receiveData(packet) {
         }
       }
 
-      console.log(masterObject);
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
       connection.query(QUERY, (queryError, result, fields) => {
         if (queryError) {
@@ -386,7 +385,7 @@ function receiveData(packet) {
 
           masterObject.stationID = STATION_NAMES[masterObject.stationname];
         }
-
+        console.log(masterObject);
         // console.log();
         // console.log('master object');
         // console.log(masterObject);
