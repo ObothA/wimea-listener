@@ -129,6 +129,7 @@ function receiveData(packet) {
 
       /** ** this is intended to handle pi data **** */
       if (!line.includes('RTC_T')) {
+        console.log('line includes rtc');
         var datereg = RegExp('([2][0-9]{3})[-]([0-9]{2})[-]([0-9]{2})', 'g');
         var timereg = RegExp('([0-9]{2})[\\:]([0-9]{2})[\\:]([0-9]{2})', 'g');
 
@@ -383,10 +384,10 @@ function receiveData(packet) {
           masterObject.stationID = STATION_NAMES[masterObject.stationname];
         }
 
-        console.log();
-        console.log('master object');
-        console.log(masterObject);
-        insertIntoDb(masterObject, connection);
+        // console.log();
+        // console.log('master object');
+        // console.log(masterObject);
+        // insertIntoDb(masterObject, connection);
       });
 
       /** responsible for linking */
