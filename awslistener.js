@@ -9,6 +9,7 @@ const moment = require('moment');
 
 
 const wrtieToFiles = require('./utils/writeTofiles');
+const insertIntoDb = require('./utils/insertIntoDb');
 
 const HOST = '0.0.0.0';
 const PORT = 10024;
@@ -68,39 +69,40 @@ function receiveData(packet) {
   /** **** */
   /* variables to insert into the db */
   /** *** */
-  var RTC_T = null;
-  var NAME = '';
-  var E64 = null;
-  var RH = null;
-  var T = null;
-  var V_IN = null;
-  var V_MCU = null;
-  var ADDR = null;
-  var SEQ = null;
-  var TTL = null;
-  var RSSI = null;
-  var LQI = null;
-  var PS = null;
-  var T1 = null;
-  var P0_LST60 = null;
-  var V_A2 = null;
-  var V_A1 = null;
-  var V_A3 = null;
-  var T_SHT2X = null;
-  var RH_SHT2X = null;
-  var REPS = null;
-  var UP_TIME = null;
-  var V_AD1 = null;
-  var UP = null;
-  var P_MS5611 = null;
-  var V_BAT = null;
-  var SOC = null;
-  var V_MCRTC_T = null;
-  var V_AD2 = null;
-  var UTC_TZ = null;
-  var stationname = null;
-  var stationID = null;
-
+  var masterObject = {
+    RTC_T: null,
+    NAME: '',
+    E64: null,
+    RH: null,
+    T: null,
+    V_IN: null,
+    V_MCU: null,
+    ADDR: null,
+    SEQ: null,
+    TTL: null,
+    RSSI: null,
+    LQI: null,
+    PS: null,
+    T1: null,
+    P0_LST60: null,
+    V_A2: null,
+    V_A1: null,
+    V_A3: null,
+    T_SHT2X: null,
+    RH_SHT2X: null,
+    REPS: null,
+    UP_TIME: null,
+    V_AD1: null,
+    UP: null,
+    P_MS5611: null,
+    V_BAT: null,
+    SOC: null,
+    V_MCRTC_T: null,
+    V_AD2: null,
+    UTC_TZ: null,
+    stationname: null,
+    stationID: null,
+  };
   /** variables to use  through function */
   var packetArray = [];
 
@@ -119,7 +121,7 @@ function receiveData(packet) {
       wrtieToFiles(`${line}\n`);
 
       if (line.includes('TZ=UTC')) {
-        UTC_TZ = true;
+        masterObject.UTC_TZ = true;
       }
 
       /** ** this is intended to handle pi data **** */
@@ -130,20 +132,20 @@ function receiveData(packet) {
         var date = datereg.exec(line);
         var time = timereg.exec(line);
         if (date && time) {
-          RTC_T = `${date[0]},${time[0]}`;
+          masterObject.RTC_T = `${date[0]},${time[0]}`;
           /* convert utc time to ugandan time */
-          if (UTC_TZ) {
+          if (masterObject.UTC_TZ) {
             var momentDate = moment(`${date[0]} ${time[0]}`, 'YYYY-MM-DD HH:mm:ss');
             // eslint-disable-next-line prefer-destructuring
             time = momentDate.add(3, 'hours').toString().split(' ')[4];
-            RTC_T = `${date[0]},${time}`;
-            UTC_TZ = null; // to avoid another operation down
+            masterObject.RTC_T = `${date[0]},${time}`;
+            masterObject.UTC_TZ = null; // to avoid another operation down
           }
 
-          if (RTC_T && RTC_T.length > 19) {
+          if (masterObject.RTC_T && masterObject.RTC_T.length > 19) {
             /** if the data is corrupt, clean */
-            RTC_T = RTC_T.slice(-19);
-          } else if (!RTC_T) {
+            masterObject.RTC_T = masterObject.RTC_T.slice(-19);
+          } else if (!masterObject.RTC_T) {
             // console.log('** somehow rtc from pi is null!');
           }
         }
@@ -158,175 +160,175 @@ function receiveData(packet) {
             date = item.split('=');
             date.map((x) => {
               if (x.includes(':')) {
-                RTC_T = x;
+                masterObject.RTC_T = x;
               }
             });
 
             /* convert utc time to ugandan time */
-            if (UTC_TZ && RTC_T) {
-              var onlyDate = RTC_T.split(',')[0];
-              var momentDate = moment(`${RTC_T.replace(',', ' ')}`, 'YYYY-MM-DD HH:mm:ss');
+            if (masterObject.UTC_TZ && masterObject.RTC_T) {
+              var onlyDate = masterObject.RTC_T.split(',')[0];
+              var momentDate = moment(`${masterObject.RTC_T.replace(',', ' ')}`, 'YYYY-MM-DD HH:mm:ss');
               var timeOnly = momentDate.add(3, 'hours').toString().split(' ')[4];
-              RTC_T = `${onlyDate},${timeOnly}`;
+              masterObject.RTC_T = `${onlyDate},${timeOnly}`;
             }
 
-            if (RTC_T && RTC_T.length > 19) {
+            if (masterObject.RTC_T && masterObject.RTC_T.length > 19) {
               /** if the data is corrupt, clean */
-              RTC_T = RTC_T.slice(-19);
-            } else if (!RTC_T) {
+              masterObject.RTC_T = masterObject.RTC_T.slice(-19);
+            } else if (!masterObject.RTC_T) {
               // console.log('** somehow rtc is null!');
             }
           }
 
           if (item.includes('NAME')) {
-            NAME = item.split('=')[1];
+            masterObject.NAME = item.split('=')[1];
           }
 
           if (item.includes('TXT')) {
-            NAME = item.split('=')[1];
+            masterObject.NAME = item.split('=')[1];
           }
 
-          if (!RTC_T) {
+          if (!masterObject.RTC_T) {
             /** console log the node with a null rtc */
             // console.log(`culprit of null rtc is: ${NAME}`);
           }
 
           if (item.includes('E64')) {
-            E64 = item.split('=')[1];
+            masterObject.E64 = item.split('=')[1];
           }
 
           if (item.includes('RH')) {
             var tempRH = item.split('=');
             if (tempRH[0].length === 2) {
-              RH = tempRH[1];
+              masterObject.RH = tempRH[1];
             }
           }
 
           if (item.includes('T')) {
             if (item.split('=')[0].length === 1) {
-              T = item.split('=')[1];
+              masterObject.T = item.split('=')[1];
             }
           }
 
           // to be remved
           if (item.includes('ADDR')) {
-            ADDR = item.split('=')[1];
+            masterObject.ADDR = item.split('=')[1];
           }
 
           if (item.includes('SEQ')) {
-            SEQ = item.split('=')[1];
+            masterObject.SEQ = item.split('=')[1];
           }
 
           if (item.includes('TTL')) {
-            TTL = item.split('=')[1];
+            masterObject.TTL = item.split('=')[1];
           }
 
           if (item.includes('RSSI')) {
-            RSSI = item.split('=')[1];
+            masterObject.RSSI = item.split('=')[1];
           }
 
           if (item.includes('LQI')) {
-            LQI = item.split('=')[1];
+            masterObject.LQI = item.split('=')[1];
           }
 
           if (item.includes('PS')) {
             var tempPS = item.split('=');
             if (tempPS[0].length === 2) {
-              PS = tempPS[1];
+              masterObject.PS = tempPS[1];
             }
           }
 
           if (item.includes('T1')) {
-            T1 = item.split('=')[1];
+            masterObject.T1 = item.split('=')[1];
           }
 
           if (item.includes('P0_LST60')) {
-            P0_LST60 = item.split('=')[1];
+            masterObject.P0_LST60 = item.split('=')[1];
           }
 
           if (item.includes('V_A1')) {
-            V_A1 = item.split('=')[1];
+            masterObject.V_A1 = item.split('=')[1];
           }
 
           if (item.includes('V_A2')) {
-            V_A2 = item.split('=')[1];
+            masterObject.V_A2 = item.split('=')[1];
           }
 
           if (item.includes('V_A3')) {
-            V_A3 = item.split('=')[1];
+            masterObject.V_A3 = item.split('=')[1];
           }
 
           if (item.includes('V_IN')) {
-            V_IN = item.split('=')[1];
+            masterObject.V_IN = item.split('=')[1];
           }
 
           if (item.includes('V_MCU')) {
-            V_MCU = item.split('=')[1];
+            masterObject.V_MCU = item.split('=')[1];
           }
 
           if (item.includes('T_SHT2X')) {
-            T_SHT2X = item.split('=')[1];
+            masterObject.T_SHT2X = item.split('=')[1];
           }
 
           // handle temperature of 2m fos
-          if (item.includes('T') && NAME && NAME.includes('fos')) {
+          if (item.includes('T') && masterObject.NAME && masterObject.NAME.includes('fos')) {
             if (item.split('=')[0].length === 1) {
-              T_SHT2X = item.split('=')[1];
+              masterObject.T_SHT2X = item.split('=')[1];
             }
           }
 
 
           if (item.includes('REPS')) {
-            REPS = item.split('=')[1];
+            masterObject.REPS = item.split('=')[1];
           }
 
           if (item.includes('UP_TIME')) {
-            UP_TIME = item.split('=')[1];
+            masterObject.UP_TIME = item.split('=')[1];
           }
 
           if (item.includes('V_AD1')) {
-            V_AD1 = item.split('=')[1];
+            masterObject.V_AD1 = item.split('=')[1];
           }
 
           if (item.includes('UP')) {
             var tempUP = item.split('=');
             if (tempUP[0].length === 2) {
-              UP = tempUP[1];
+              masterObject.UP = tempUP[1];
             }
           }
 
           if (item.includes('P_MS5611')) {
-            P_MS5611 = item.split('=')[1];
+            masterObject.P_MS5611 = item.split('=')[1];
           }
 
           if (item.includes('V_BAT')) {
-            V_BAT = item.split('=')[1];
+            masterObject.V_BAT = item.split('=')[1];
           }
 
           if (item.includes('SOC')) {
-            SOC = item.split('=')[1];
+            masterObject.SOC = item.split('=')[1];
           }
 
           if (item.includes('V_MCRTC_T')) {
-            V_MCRTC_T = item.split('=')[1];
+            masterObject.V_MCRTC_T = item.split('=')[1];
           }
 
           if (item.includes('V_AD2')) {
-            V_AD2 = item.split('=')[1];
+            masterObject.V_AD2 = item.split('=')[1];
           }
 
           if (item.includes('RH_SHT2X')) {
-            RH_SHT2X = item.split('=')[1];
+            masterObject.RH_SHT2X = item.split('=')[1];
           }
 
           // handle relative humidity for fos
-          if (item.includes('RH') && NAME && NAME.includes('fos')) {
+          if (item.includes('RH') && masterObject.NAME && masterObject.NAME.includes('fos')) {
             // eslint-disable-next-line block-scoped-var
             tempRH = item.split('=');
             // eslint-disable-next-line block-scoped-var
             if (tempRH[0].length === 2) {
               // eslint-disable-next-line block-scoped-var
-              RH_SHT2X = tempRH[1];
+              masterObject.RH_SHT2X = tempRH[1];
             }
           }
         }
@@ -334,27 +336,27 @@ function receiveData(packet) {
       // close inner map
 
       /** responsible for linking */
-      if (NAME && NAME.includes('-')) {
-        stationname = NAME.split('-')[0];
-        var stationNumber = NAME.split('-')[1];
+      if (masterObject.NAME && masterObject.NAME.includes('-')) {
+        masterObject.stationname = masterObject.NAME.split('-')[0];
+        var stationNumber = masterObject.NAME.split('-')[1];
         if (!isNaN(stationNumber)) {
-          stationname = `${stationname}-${stationNumber}`;
+          masterObject.stationname = `${masterObject.stationname}-${stationNumber}`;
         }
-      } else if (NAME && NAME.includes('_')) {
-        stationname = NAME.split('_')[0];
-        var stationNumber2 = NAME.split('_')[1];
+      } else if (masterObject.NAME && masterObject.NAME.includes('_')) {
+        masterObject.stationname = masterObject.NAME.split('_')[0];
+        var stationNumber2 = masterObject.NAME.split('_')[1];
         if (!isNaN(stationNumber2)) {
-          stationname = `${stationname}_${stationNumber2}`;
+          masterObject.stationname = `${masterObject.stationname}_${stationNumber2}`;
         }
       }
 
-      const QUERY = `SELECT station_id FROM stations WHERE StationName = '${stationname}'`;
+      const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
       connection.query(QUERY, (queryError, result, fields) => {
         if (queryError) {
           throw queryError;
         } else if (result.length > 0) {
           console.log(result[0].station_id);
-          stationID = result[0].station_id;
+          masterObject.stationID = result[0].station_id;
         } else {
           const STATION_NAMES = {
             myg: 54,
@@ -376,227 +378,51 @@ function receiveData(packet) {
             jnj: 50,
           };
 
-          stationID = STATION_NAMES[stationname];
+          masterObject.stationID = STATION_NAMES[masterObject.stationname];
         }
+
+        insertIntoDb(masterObject, connection);
       });
 
       /** responsible for linking */
 
 
-      if (NAME && NAME.toLowerCase().includes('2m')) {
-        // object for the 2meter node
-        const node_2m = {
-          stationID,
-          RTC_T,
-          NAME,
-          E64,
-          T,
-          V_IN,
-          V_MCU,
-          SEQ,
-          TTL,
-          RSSI,
-          LQI,
-          T_SHT2X,
-          RH_SHT2X,
-          UP_TIME,
-          DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
-          TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5,
-        };
-
-
-        // query to insert into the 2 meter table
-        connection.query('INSERT INTO TwoMeterNode SET ?', node_2m, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
-
-      if (NAME && NAME.toLowerCase().includes('10m')) {
-        // object for 10 meter node
-        const node_10_meter = {
-          RTC_T,
-          NAME,
-          E64,
-          T,
-          V_IN,
-          V_MCU,
-          SEQ,
-          TTL,
-          RSSI,
-          LQI,
-          P0_LST60,
-          V_A2,
-          V_A1,
-          UP_TIME,
-          V_AD1,
-          V_AD2,
-          DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
-          TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5,
-          stationID,
-        };
-
-        // query to insert into the 10 meter table
-        connection.query('INSERT INTO TenMeterNode SET ?', node_10_meter, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
-
-      if (NAME && NAME.toLowerCase().includes('gnd')) {
-        // object to be inserted into ground table
-        const ground_node = {
-          RTC_T,
-          NAME,
-          E64,
-          T,
-          V_IN,
-          V_MCU,
-          SEQ,
-          TTL,
-          RSSI,
-          LQI,
-          T1,
-          P0_LST60,
-          V_A2,
-          V_A1,
-          UP_TIME,
-          DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
-          TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5,
-          stationID,
-        };
-
-
-        // query to insert into the ground table
-        connection.query('INSERT INTO GroundNode SET ?', ground_node, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
-
-      if (NAME && NAME.toLowerCase().includes('sink')) {
-        // object to insert into sink table
-        const sink_node = {
-          RTC_T,
-          NAME,
-          E64,
-          T,
-          V_IN,
-          V_MCU,
-          SEQ,
-          UP_TIME,
-          P_MS5611,
-          DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
-          TIME: new Date().toString().split(' ')[4],
-          hoursSinceEpoch: new Date().getTime() / 36e5,
-          stationID,
-        };
-
-        // query to insert into the sink table
-        connection.query('INSERT INTO SinkNode SET ?', sink_node, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
-
-      // object to insert into the general table
-      const general_table = {
-        RTC_T,
-        stationname,
-        V_BAT,
-        SOC,
-        V_MCRTC_T,
-        REPS,
-        DATE: new Date().toString().split(' ').slice(0, 4).join(' '),
-        TIME: new Date().toString().split(' ')[4],
-        hoursSinceEpoch: new Date().getTime() / 36e5,
-        stationID,
-      };
-
-      if ((NAME && V_BAT && SOC) || (NAME && REPS)) {
-        // query to insert into the general table
-        connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
-      const elec = {
-        RTC_T,
-        V_BAT,
-        SOC,
-        stationname,
-        NAME,
-        stationID,
-      };
-
-      if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
-        // query to insert into the elec
-        connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      }
-
       // reinitialise the variables
       /** *** */
-      RTC_T = null;
-      NAME = '';
-      E64 = null;
-      RH = null;
-      T = null;
-      V_IN = null;
-      V_MCU = null;
-      ADDR = null;
-      SEQ = null;
-      TTL = null;
-      RSSI = null;
-      LQI = null;
-      PS = null;
-      T1 = null;
-      P0_LST60 = null;
-      V_A2 = null;
-      V_A1 = null;
-      V_A3 = null;
-      T_SHT2X = null;
-      RH_SHT2X = null;
-      REPS = null;
-      UP_TIME = null;
-      V_AD1 = null;
-      UP = null;
-      P_MS5611 = null;
-      V_BAT = null;
-      SOC = null;
-      V_MCRTC_T = null;
-      V_AD2 = null;
-      UTC_TZ = null;
-      stationname = null;
-      stationID = null;
+      masterObject.RTC_T = null;
+      masterObject.NAME = '';
+      masterObject.E64 = null;
+      masterObject.RH = null;
+      masterObject.T = null;
+      masterObject.V_IN = null;
+      masterObject.V_MCU = null;
+      masterObject.ADDR = null;
+      masterObject.SEQ = null;
+      masterObject.TTL = null;
+      masterObject.RSSI = null;
+      masterObject.LQI = null;
+      masterObject.PS = null;
+      masterObject.T1 = null;
+      masterObject.P0_LST60 = null;
+      masterObject.V_A2 = null;
+      masterObject.V_A1 = null;
+      masterObject.V_A3 = null;
+      masterObject.T_SHT2X = null;
+      masterObject.RH_SHT2X = null;
+      masterObject.REPS = null;
+      masterObject.UP_TIME = null;
+      masterObject.V_AD1 = null;
+      masterObject.UP = null;
+      masterObject.P_MS5611 = null;
+      masterObject.V_BAT = null;
+      masterObject.SOC = null;
+      masterObject.V_MCRTC_T = null;
+      masterObject.V_AD2 = null;
+      masterObject.UTC_TZ = null;
+      masterObject.stationname = null;
+      masterObject.stationID = null;
       /** ******* */
     }
   });
   // close outter map
-
-  connection.end((err) => {
-    // The connection is terminated now
-    if (err) {
-      console.log('=====================================================');
-      console.log('connection has been closed albeit with an error');
-      console.log('=====================================================');
-      console.log(err);
-    }
-  });
 }
