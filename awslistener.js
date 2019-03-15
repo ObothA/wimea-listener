@@ -191,6 +191,8 @@ function receiveData(packet) {
 
           if (item.includes('TXT')) {
             masterObject.NAME = item.split('=')[1];
+            console.log(item.split('=')[1]);
+            console.log(masterObject.NAME);
           }
 
           if (!masterObject.RTC_T) {
