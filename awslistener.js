@@ -164,8 +164,6 @@ function receiveData(packet) {
             date.map((x) => {
               if (x.includes(':')) {
                 masterObject.RTC_T = x;
-                console.log(x);
-                console.log(masterObject.RTC_T);
               }
             });
 
@@ -193,8 +191,8 @@ function receiveData(packet) {
 
           if (item.includes('TXT')) {
             masterObject.NAME = item.split('=')[1];
-            console.log(item.split('=')[1]);
-            console.log(masterObject.NAME);
+            // console.log(item.split('=')[1]);
+            console.log(masterObject);
           }
 
           if (!masterObject.RTC_T) {
