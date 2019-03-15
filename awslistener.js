@@ -348,7 +348,7 @@ function receiveData(packet) {
         }
       }
 
-      const QUERY = `SELECT station_id FROM stations WHERE StationName=${stationname}`;
+      const QUERY = `SELECT station_id FROM stations WHERE StationName = '${stationname}'`;
       connection.query(QUERY, (queryError, result, fields) => {
         if (queryError) {
           throw queryError;
