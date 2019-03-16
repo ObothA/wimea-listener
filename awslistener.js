@@ -357,8 +357,20 @@ function receiveData(packet) {
         }
       }
 
+      const hasAccess = (id) => {
+        masterObject.stationID = id;
+    
+        console.log(masterObject);
+    
+        // console.log(masterObject);
+        // console.log();
+        // console.log('master object');
+        // console.log(masterObject);
+        // insertIntoDb(masterObject, connection);
+      };
+
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      callback(connection, QUERY, masterObject, masterObject.stationname);
+      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess);
       /** responsible for linking */
 
 

@@ -1,12 +1,4 @@
-function callback(connection, QUERY, masterObject, stationname) {
-  const hasAccess = (id) => {
-    masterObject.stationID = id;
-
-    console.log(masterObject);
-    console.log(this);
-  };
-
-  hasAccess.bind(masterObject);
+function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
 
   connection.query(QUERY, (queryError, result, fields) => {
     console.log();
@@ -14,7 +6,7 @@ function callback(connection, QUERY, masterObject, stationname) {
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      hasAccess(result[0].station_id);
+      callbackfunc(result[0].station_id);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -36,13 +28,8 @@ function callback(connection, QUERY, masterObject, stationname) {
         jnj: 50,
       };
 
-      hasAccess(STATION_NAMES[stationname]);
+      callbackfunc(STATION_NAMES[stationname]);
     }
-    // console.log(masterObject);
-    // console.log();
-    // console.log('master object');
-    // console.log(masterObject);
-    // insertIntoDb(masterObject, connection);
   });
 }
 
