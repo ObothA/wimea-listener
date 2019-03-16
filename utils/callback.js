@@ -1,15 +1,17 @@
-function callback(connection, QUERY, masterObject) {
-  console.log();
-  console.log('callback');
-  console.log(masterObject);
-  // global.
+function callback(connection, QUERY, masterObject, stationname) {
+  const hasAccess = (id) => {
+    masterObject.stationID = id;
+
+    console.log(masterObject);
+  };
+
   connection.query(QUERY, (queryError, result, fields) => {
     console.log();
     console.log('query');
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      masterObject.stationID = result[0].station_id;
+      hasAccess(result[0].station_id);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -31,7 +33,7 @@ function callback(connection, QUERY, masterObject) {
         jnj: 50,
       };
 
-      masterObject.stationID = STATION_NAMES[masterObject.stationname];
+      hasAccess(STATION_NAMES[stationname]);
     }
     // console.log(masterObject);
     // console.log();

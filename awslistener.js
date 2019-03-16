@@ -358,7 +358,7 @@ function receiveData(packet) {
       }
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      callback(connection, QUERY, masterObject);
+      callback(connection, QUERY, masterObject, masterObject.stationname);
       /** responsible for linking */
 
 
