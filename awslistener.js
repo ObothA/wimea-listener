@@ -360,8 +360,7 @@ function receiveData(packet) {
       const hasAccess = () => {
         masterObject.stationID = this.id;
     
-        // console.log(masterObject);
-        console.log(global);
+        console.log(masterObject);
     
         // console.log(masterObject);
         // console.log();
@@ -371,9 +370,6 @@ function receiveData(packet) {
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      console.log();
-      console.log('calling has access 1');
-      console.log(global);
       callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess.bind({ id: 1 }));
       /** responsible for linking */
 
