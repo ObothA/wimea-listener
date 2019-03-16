@@ -1,5 +1,9 @@
 function callback(connection, QUERY, masterObject) {
+  console.log();
+  console.log('callback');
   connection.query(QUERY, (queryError, result, fields) => {
+    console.log();
+    console.log('query');
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
