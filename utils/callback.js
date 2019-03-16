@@ -3,7 +3,10 @@ function callback(connection, QUERY, masterObject, stationname) {
     masterObject.stationID = id;
 
     console.log(masterObject);
+    console.log(this);
   };
+
+  hasAccess.bind(masterObject);
 
   connection.query(QUERY, (queryError, result, fields) => {
     console.log();
