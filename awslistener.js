@@ -391,7 +391,7 @@ function receiveData(packet) {
         // console.log('master object');
         // console.log(masterObject);
         // insertIntoDb(masterObject, connection);
-      }).bind(masterObject);
+      });
 
       /** responsible for linking */
 
