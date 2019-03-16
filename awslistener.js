@@ -358,7 +358,7 @@ function receiveData(packet) {
       }
 
       const hasAccess = () => {
-        // masterObject.stationID = id;
+        masterObject.stationID = this.id;
     
         // console.log(masterObject);
         console.log(global);
@@ -374,7 +374,7 @@ function receiveData(packet) {
       console.log();
       console.log('calling has access 1');
       console.log(global);
-      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess);
+      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess.bind({ id: 1 }));
       /** responsible for linking */
 
 
