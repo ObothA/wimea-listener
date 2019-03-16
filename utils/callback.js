@@ -1,12 +1,11 @@
 function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
 
   connection.query(QUERY, (queryError, result, fields) => {
-    console.log();
-    console.log('query');
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      callbackfunc(result[0].station_id);
+      // callbackfunc(result[0].station_id);
+      callbackfunc();
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -28,7 +27,8 @@ function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
         jnj: 50,
       };
 
-      callbackfunc(STATION_NAMES[stationname]);
+      // callbackfunc(STATION_NAMES[stationname]);
+      callbackfunc();
     }
   });
 }

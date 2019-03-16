@@ -357,7 +357,7 @@ function receiveData(packet) {
         }
       }
 
-      const hasAccess = (id) => {
+      const hasAccess = () => {
         masterObject.stationID = id;
     
         console.log(masterObject);
