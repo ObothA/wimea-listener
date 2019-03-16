@@ -1,5 +1,4 @@
-/* eslint-disable func-names */
-/* eslint-disable wrap-iife */
+/* eslint-disable no-inner-declarations */
 /* eslint-disable newline-per-chained-call */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable vars-on-top */
@@ -359,8 +358,8 @@ function receiveData(packet) {
       }
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      connection.query(QUERY, (function(masterObject) {
-        return (queryError, result, fields) => {
+      function callMethdof() {
+        connection.query(QUERY, (queryError, result, fields) => {
           if (queryError) {
             throw queryError;
           } else if (result.length > 0) {
@@ -385,17 +384,19 @@ function receiveData(packet) {
               mygg3: 54,
               jnj: 50,
             };
-  
+
             masterObject.stationID = STATION_NAMES[masterObject.stationname];
           }
-          console.log(this.masterObject);
+          console.log(this);
           // console.log();
           // console.log('master object');
           // console.log(masterObject);
           // insertIntoDb(masterObject, connection);
-        };
-      })(masterObject));
+        });
+      }
 
+      var Boundedcall = callMethdof.bind(masterObject);
+      Boundedcall();
       /** responsible for linking */
 
 
