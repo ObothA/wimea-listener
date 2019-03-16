@@ -1,6 +1,8 @@
 function callback(connection, QUERY, masterObject) {
   console.log();
   console.log('callback');
+  console.log(masterObject);
+  // global.
   connection.query(QUERY, (queryError, result, fields) => {
     console.log();
     console.log('query');
@@ -31,7 +33,7 @@ function callback(connection, QUERY, masterObject) {
 
       masterObject.stationID = STATION_NAMES[masterObject.stationname];
     }
-    console.log(masterObject);
+    // console.log(masterObject);
     // console.log();
     // console.log('master object');
     // console.log(masterObject);
