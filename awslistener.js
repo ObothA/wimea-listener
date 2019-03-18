@@ -340,6 +340,7 @@ function receiveData(packet) {
             }
           }
           masterObject.wait = false;
+          masterObject.new = 'new property';
         }
       });
       // close inner map
