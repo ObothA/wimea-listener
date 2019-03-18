@@ -344,6 +344,8 @@ function receiveData(packet) {
         }
       });
       // close inner map
+
+      console.log(masterObject);
     
       /** responsible for linking */
       if (masterObject.NAME && masterObject.NAME.includes('-')) {
@@ -363,7 +365,7 @@ function receiveData(packet) {
       const hasAccess = (id) => {
         masterObject.stationID = id;
     
-        console.log(masterObject);
+        // console.log(masterObject);
     
         // console.log(masterObject);
         // console.log();
