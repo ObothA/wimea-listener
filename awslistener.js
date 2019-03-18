@@ -362,8 +362,9 @@ function receiveData(packet) {
 
       const hasAccess = (id, masterObjectCopy) => {
         masterObjectCopy.stationID = id;
+        console.log('new object');
         console.log(masterObjectCopy);
-        insertIntoDb(masterObjectCopy, connection);
+        // insertIntoDb(masterObjectCopy, connection);
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
