@@ -381,39 +381,39 @@ function receiveData(packet) {
 
       // reinitialise the variables
       /** *** */
-      masterObject.RTC_T = null;
-      masterObject.NAME = '';
-      masterObject.E64 = null;
-      masterObject.RH = null;
-      masterObject.T = null;
-      masterObject.V_IN = null;
-      masterObject.V_MCU = null;
-      masterObject.ADDR = null;
-      masterObject.SEQ = null;
-      masterObject.TTL = null;
-      masterObject.RSSI = null;
-      masterObject.LQI = null;
-      masterObject.PS = null;
-      masterObject.T1 = null;
-      masterObject.P0_LST60 = null;
-      masterObject.V_A2 = null;
-      masterObject.V_A1 = null;
-      masterObject.V_A3 = null;
-      masterObject.T_SHT2X = null;
-      masterObject.RH_SHT2X = null;
-      masterObject.REPS = null;
-      masterObject.UP_TIME = null;
-      masterObject.V_AD1 = null;
-      masterObject.UP = null;
-      masterObject.P_MS5611 = null;
-      masterObject.V_BAT = null;
-      masterObject.SOC = null;
-      masterObject.V_MCRTC_T = null;
-      masterObject.V_AD2 = null;
-      masterObject.UTC_TZ = null;
-      masterObject.stationname = null;
-      masterObject.stationID = null;
-      /** ******* */
+      // masterObject.RTC_T = null;
+      // masterObject.NAME = '';
+      // masterObject.E64 = null;
+      // masterObject.RH = null;
+      // masterObject.T = null;
+      // masterObject.V_IN = null;
+      // masterObject.V_MCU = null;
+      // masterObject.ADDR = null;
+      // masterObject.SEQ = null;
+      // masterObject.TTL = null;
+      // masterObject.RSSI = null;
+      // masterObject.LQI = null;
+      // masterObject.PS = null;
+      // masterObject.T1 = null;
+      // masterObject.P0_LST60 = null;
+      // masterObject.V_A2 = null;
+      // masterObject.V_A1 = null;
+      // masterObject.V_A3 = null;
+      // masterObject.T_SHT2X = null;
+      // masterObject.RH_SHT2X = null;
+      // masterObject.REPS = null;
+      // masterObject.UP_TIME = null;
+      // masterObject.V_AD1 = null;
+      // masterObject.UP = null;
+      // masterObject.P_MS5611 = null;
+      // masterObject.V_BAT = null;
+      // masterObject.SOC = null;
+      // masterObject.V_MCRTC_T = null;
+      // masterObject.V_AD2 = null;
+      // masterObject.UTC_TZ = null;
+      // masterObject.stationname = null;
+      // masterObject.stationID = null;
+      // /** ******* */
     }
   });
   // close outter map
