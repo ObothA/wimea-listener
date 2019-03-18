@@ -339,9 +339,8 @@ function receiveData(packet) {
               masterObject.RH_SHT2X = tempRH[1];
             }
           }
+          masterObject.wait = false;
         }
-
-        masterObject.wait = false;
       });
       // close inner map
     

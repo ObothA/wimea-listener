@@ -13,6 +13,7 @@ function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
           console.log(masterObject.wait);
           callbackfunc(result[0].station_id);
           counter = false;
+          masterObject.wait = true;
         } else {
           console.log('..... wait');
         }
