@@ -362,59 +362,54 @@ function receiveData(packet) {
         }
       }
 
-      const hasAccess = (id) => {
-        masterObject.stationID = id;
-    
-        console.log(masterObject);
-    
-        // console.log(masterObject);
-        // console.log();
-        // console.log('master object');
-        // console.log(masterObject);
+      const masterObjectCopy = Object.assign({}, masterObject);
+
+      const hasAccess = (id, masterObjectCopy) => {
+        masterObjectCopy.stationID = id;
+        console.log(masterObjectCopy);
         // insertIntoDb(masterObject, connection);
       };
 
-      const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess);
+      const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
+      callback(connection, QUERY, masterObjectCopy, masterObjectCopy.stationname, hasAccess);
       /** responsible for linking */
-
-
-      // reinitialise the variables
-      /** *** */
-      // masterObject.RTC_T = null;
-      // masterObject.NAME = '';
-      // masterObject.E64 = null;
-      // masterObject.RH = null;
-      // masterObject.T = null;
-      // masterObject.V_IN = null;
-      // masterObject.V_MCU = null;
-      // masterObject.ADDR = null;
-      // masterObject.SEQ = null;
-      // masterObject.TTL = null;
-      // masterObject.RSSI = null;
-      // masterObject.LQI = null;
-      // masterObject.PS = null;
-      // masterObject.T1 = null;
-      // masterObject.P0_LST60 = null;
-      // masterObject.V_A2 = null;
-      // masterObject.V_A1 = null;
-      // masterObject.V_A3 = null;
-      // masterObject.T_SHT2X = null;
-      // masterObject.RH_SHT2X = null;
-      // masterObject.REPS = null;
-      // masterObject.UP_TIME = null;
-      // masterObject.V_AD1 = null;
-      // masterObject.UP = null;
-      // masterObject.P_MS5611 = null;
-      // masterObject.V_BAT = null;
-      // masterObject.SOC = null;
-      // masterObject.V_MCRTC_T = null;
-      // masterObject.V_AD2 = null;
-      // masterObject.UTC_TZ = null;
-      // masterObject.stationname = null;
-      // masterObject.stationID = null;
-      // /** ******* */
     }
   });
   // close outter map
+
+  // reinitialise the variables
+  /** *** */
+  masterObject.RTC_T = null;
+  masterObject.NAME = '';
+  masterObject.E64 = null;
+  masterObject.RH = null;
+  masterObject.T = null;
+  masterObject.V_IN = null;
+  masterObject.V_MCU = null;
+  masterObject.ADDR = null;
+  masterObject.SEQ = null;
+  masterObject.TTL = null;
+  masterObject.RSSI = null;
+  masterObject.LQI = null;
+  masterObject.PS = null;
+  masterObject.T1 = null;
+  masterObject.P0_LST60 = null;
+  masterObject.V_A2 = null;
+  masterObject.V_A1 = null;
+  masterObject.V_A3 = null;
+  masterObject.T_SHT2X = null;
+  masterObject.RH_SHT2X = null;
+  masterObject.REPS = null;
+  masterObject.UP_TIME = null;
+  masterObject.V_AD1 = null;
+  masterObject.UP = null;
+  masterObject.P_MS5611 = null;
+  masterObject.V_BAT = null;
+  masterObject.SOC = null;
+  masterObject.V_MCRTC_T = null;
+  masterObject.V_AD2 = null;
+  masterObject.UTC_TZ = null;
+  masterObject.stationname = null;
+  masterObject.stationID = null;
+  // /** ******* */
 }

@@ -1,23 +1,11 @@
 /* eslint-disable no-var */
-function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
+function callback(connection, QUERY, masterObjectCopy, stationname, callbackfunc) {
 
   connection.query(QUERY, (queryError, result, fields) => {
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      // callbackfunc(result[0].station_id);
-      // eslint-disable-next-line vars-on-top
-      var counter = true;
-      while (counter) {
-        if (!masterObject.wait) {
-          console.log(` the wait is ${masterObject.wait}`);
-          callbackfunc(result[0].station_id);
-          counter = false;
-          masterObject.wait = true;
-        } else {
-          console.log('..... wait');
-        }
-      }
+      callbackfunc(result[0].station_id, masterObjectCopy);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -39,8 +27,8 @@ function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
         jnj: 50,
       };
 
-      // callbackfunc(STATION_NAMES[stationname]);
-      callbackfunc();
+      callbackfunc(STATION_NAMES[stationname], masterObjectCopy);
+      // callbackfunc();
     }
   });
 }

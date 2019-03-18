@@ -1,40 +1,40 @@
 /* eslint-disable no-var */
 /* eslint-disable prefer-destructuring */
-const insertIntoDb = (masterObject,connection) => {
-  var RTC_T = masterObject.RTC_T;
-  var NAME = masterObject.NAME;
-  var E64 = masterObject.E64;
-  var RH = masterObject.RH;
-  var T = masterObject.T;
-  var V_IN = masterObject.V_IN;
-  var V_MCU = masterObject.V_MCU;
-  var ADDR = masterObject.ADDR;
-  var SEQ = masterObject.SEQ;
-  var TTL = masterObject.TTL;
-  var RSSI = masterObject.RSSI;
-  var LQI = masterObject.LQI;
-  var PS = masterObject.PS;
-  var T1 = masterObject.T1;
-  var P0_LST60 = masterObject.P0_LST60;
-  var V_A2 = masterObject.V_A2;
-  var V_A1 = masterObject.V_A1;
-  var V_A3 = masterObject.V_A3;
-  var T_SHT2X = masterObject.T_SHT2X;
-  var RH_SHT2X = masterObject.RH_SHT2X;
-  var REPS = masterObject.REPS;
-  var UP_TIME = masterObject.UP_TIME;
-  var V_AD1 = masterObject.V_AD1;
-  var UP = masterObject.UP;
-  var P_MS5611 = masterObject.P_MS5611;
-  var V_BAT = masterObject.V_BAT;
-  var SOC = masterObject.SOC;
-  var V_MCRTC_T = masterObject.V_MCRTC_T;
-  var V_AD2 = masterObject.V_AD2
-  var UTC_TZ = masterObject.UTC_TZ;
-  var stationname = masterObject.stationname;
-  var stationID = masterObject.stationID;
+const insertIntoDb = (masterObjectCopy, connection) => {
+  var RTC_T = masterObjectCopy.RTC_T;
+  var NAME = masterObjectCopy.NAME;
+  var E64 = masterObjectCopy.E64;
+  var RH = masterObjectCopy.RH;
+  var T = masterObjectCopy.T;
+  var V_IN = masterObjectCopy.V_IN;
+  var V_MCU = masterObjectCopy.V_MCU;
+  var ADDR = masterObjectCopy.ADDR;
+  var SEQ = masterObjectCopy.SEQ;
+  var TTL = masterObjectCopy.TTL;
+  var RSSI = masterObjectCopy.RSSI;
+  var LQI = masterObjectCopy.LQI;
+  var PS = masterObjectCopy.PS;
+  var T1 = masterObjectCopy.T1;
+  var P0_LST60 = masterObjectCopy.P0_LST60;
+  var V_A2 = masterObjectCopy.V_A2;
+  var V_A1 = masterObjectCopy.V_A1;
+  var V_A3 = masterObjectCopy.V_A3;
+  var T_SHT2X = masterObjectCopy.T_SHT2X;
+  var RH_SHT2X = masterObjectCopy.RH_SHT2X;
+  var REPS = masterObjectCopy.REPS;
+  var UP_TIME = masterObjectCopy.UP_TIME;
+  var V_AD1 = masterObjectCopy.V_AD1;
+  var UP = masterObjectCopy.UP;
+  var P_MS5611 = masterObjectCopy.P_MS5611;
+  var V_BAT = masterObjectCopy.V_BAT;
+  var SOC = masterObjectCopy.SOC;
+  var V_MCRTC_T = masterObjectCopy.V_MCRTC_T;
+  var V_AD2 = masterObjectCopy.V_AD2
+  var UTC_TZ = masterObjectCopy.UTC_TZ;
+  var stationname = masterObjectCopy.stationname;
+  var stationID = masterObjectCopy.stationID;
 
-    
+
   if (NAME && NAME.toLowerCase().includes('2m')) {
     // object for the 2meter node
     const node_2m = {
