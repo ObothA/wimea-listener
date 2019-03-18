@@ -103,6 +103,7 @@ function receiveData(packet) {
     UTC_TZ: null,
     stationname: null,
     stationID: null,
+    wait: true,
   };
   /** variables to use  through function */
   var packetArray = [];
@@ -339,6 +340,8 @@ function receiveData(packet) {
             }
           }
         }
+
+        masterObject.wait = false;
       });
       // close inner map
     
@@ -357,8 +360,8 @@ function receiveData(packet) {
         }
       }
 
-      const hasAccess = () => {
-        masterObject.stationID = this.id;
+      const hasAccess = (id) => {
+        masterObject.stationID = id;
     
         console.log(masterObject);
     
@@ -370,7 +373,7 @@ function receiveData(packet) {
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObject.stationname}'`;
-      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess.bind({ id: 1 }));
+      callback(connection, QUERY, masterObject, masterObject.stationname, hasAccess);
       /** responsible for linking */
 
 

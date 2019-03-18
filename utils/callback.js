@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
 
   connection.query(QUERY, (queryError, result, fields) => {
@@ -5,7 +6,16 @@ function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
       throw queryError;
     } else if (result.length > 0) {
       // callbackfunc(result[0].station_id);
-      callbackfunc();
+      // eslint-disable-next-line vars-on-top
+      var counter = true;
+      while (counter) {
+        if (!masterObject.wait) {
+          callbackfunc(result[0].station_id);
+          counter = false;
+        } else {
+          console.log('..... wait');
+        }
+      }
     } else {
       const STATION_NAMES = {
         myg: 54,
