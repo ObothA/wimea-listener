@@ -333,14 +333,10 @@ function receiveData(packet) {
           /** handle names */
           if (item.includes('NAME')) {
             masterObject.NAME = item.split('=')[1];
-            masterObject.wait = false;
-            masterObject.new = 'new property';
           }
 
           if (item.includes('TXT')) {
             masterObject.NAME = item.split('=')[1];
-            masterObject.wait = false;
-            masterObject.new = 'new property';
             // console.log(item.split('=')[1]);
           }
         }
@@ -367,7 +363,7 @@ function receiveData(packet) {
       const hasAccess = (id, masterObjectCopy) => {
         masterObjectCopy.stationID = id;
         console.log(masterObjectCopy);
-        // insertIntoDb(masterObject, connection);
+        insertIntoDb(masterObjectCopy, connection);
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
