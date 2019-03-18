@@ -10,7 +10,7 @@ function callback(connection, QUERY, masterObject, stationname, callbackfunc) {
       var counter = true;
       while (counter) {
         if (!masterObject.wait) {
-          console.log(masterObject.wait);
+          console.log(` the wait is ${masterObject.wait}`);
           callbackfunc(result[0].station_id);
           counter = false;
           masterObject.wait = true;

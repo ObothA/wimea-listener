@@ -185,17 +185,7 @@ function receiveData(packet) {
             }
           }
 
-          if (item.includes('NAME')) {
-            masterObject.NAME = item.split('=')[1];
-            console.log(item.split('=')[1]);
-            console.log(masterObject.NAME);
-          }
-
-          if (item.includes('TXT')) {
-            masterObject.NAME = item.split('=')[1];
-            // console.log(item.split('=')[1]);
-          }
-
+          
           if (!masterObject.RTC_T) {
             /** console log the node with a null rtc */
             // console.log(`culprit of null rtc is: ${NAME}`);
@@ -339,13 +329,23 @@ function receiveData(packet) {
               masterObject.RH_SHT2X = tempRH[1];
             }
           }
-          masterObject.wait = false;
-          masterObject.new = 'new property';
+
+          /** handle names */
+          if (item.includes('NAME')) {
+            masterObject.NAME = item.split('=')[1];
+            masterObject.wait = false;
+            masterObject.new = 'new property';
+          }
+
+          if (item.includes('TXT')) {
+            masterObject.NAME = item.split('=')[1];
+            masterObject.wait = false;
+            masterObject.new = 'new property';
+            // console.log(item.split('=')[1]);
+          }
         }
       });
       // close inner map
-
-      console.log(masterObject);
     
       /** responsible for linking */
       if (masterObject.NAME && masterObject.NAME.includes('-')) {
@@ -365,7 +365,7 @@ function receiveData(packet) {
       const hasAccess = (id) => {
         masterObject.stationID = id;
     
-        // console.log(masterObject);
+        console.log(masterObject);
     
         // console.log(masterObject);
         // console.log();
