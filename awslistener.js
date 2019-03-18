@@ -103,7 +103,6 @@ function receiveData(packet) {
     UTC_TZ: null,
     stationname: null,
     stationID: null,
-    wait: true,
   };
   /** variables to use  through function */
   var packetArray = [];
