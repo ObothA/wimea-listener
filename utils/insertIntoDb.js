@@ -189,7 +189,6 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     V_BAT,
     SOC,
     stationname,
-    NAME,
     stationID,
   };
   console.log(elec);
