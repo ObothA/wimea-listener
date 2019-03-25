@@ -191,9 +191,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     stationname,
     stationID,
   };
-  console.log(elec);
+  
   if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
-    console.log(elec);
     // query to insert into the elec
     connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
       if (err) {
