@@ -73,13 +73,11 @@ function wrtieToFiles(dataToWrite) {
       /** handle names */
       if (item.includes('NAME')) {
         NAME = item.split('=')[1];
+        fileWriter(`${path}${NAME}.dat`, dataToWrite);
       }
 
       if (item.includes('TXT')) {
         NAME = item.split('=')[1];
-      }
-
-      if (NAME) {
         fileWriter(`${path}${NAME}.dat`, dataToWrite);
       }
     });
