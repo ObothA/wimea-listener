@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable brace-style */
 const fileWriter = require('./fileWriter');
 
@@ -61,9 +62,25 @@ function wrtieToFiles(dataToWrite) {
 
   /** new station  */
   else {
-    
-  }
+    let NAME = '';
+    dataToWrite.split(' ').map((item) => {
+      item = item.replace('[', '');
+      item = item.replace(']', '');
 
+      /** handle names */
+      if (item.includes('NAME')) {
+        NAME = item.split('=')[1];
+      }
+
+      if (item.includes('TXT')) {
+        NAME = item.split('=')[1];
+      }
+
+      if (NAME) {
+        fileWriter(`${path}${NAME}.dat`, dataToWrite);
+      }
+    });
+  }
 }
 
 /** function to write data to files */
