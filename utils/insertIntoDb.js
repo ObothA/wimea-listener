@@ -192,7 +192,6 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     NAME,
     stationID,
   };
-  console.log(elec);
   
   if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
     // query to insert into the elec
@@ -203,15 +202,15 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     });
   }
   
-//   connection.end((err) => {
-//     // The connection is terminated now
-//     if (err) {
-//       console.log('=====================================================');
-//       console.log('connection has been closed albeit with an error');
-//       console.log('=====================================================');
-//       console.log(err);
-//     }
-//   });
+  connection.end((err) => {
+    // The connection is terminated now
+    if (err) {
+      console.log('=====================================================');
+      console.log('connection has been closed albeit with an error');
+      console.log('=====================================================');
+      console.log(err);
+    }
+  });
 };
 
 

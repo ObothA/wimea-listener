@@ -117,9 +117,6 @@ function receiveData(packet) {
   }
 
   packetArray.map((line) => {
-    // console.log();
-    // console.log('line == ');
-    // console.log(line);
     if (line.trim()) {
       /* write line by line to files */
       wrtieToFiles(`${line}\r\n`);
@@ -361,8 +358,6 @@ function receiveData(packet) {
 
       const hasAccess = (id, masterObjectCopy) => {
         masterObjectCopy.stationID = id;
-        console.log('new object');
-        console.log(masterObjectCopy);
         // insertIntoDb(masterObjectCopy, connection);
       };
 

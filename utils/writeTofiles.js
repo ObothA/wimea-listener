@@ -64,6 +64,11 @@ function wrtieToFiles(dataToWrite) {
     fileWriter(`${path}test.dat`, dataToWrite);
   }
 
+  /** new station  */
+  else {
+    
+  }
+
 }
 
 /** function to write data to files */
