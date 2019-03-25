@@ -192,7 +192,7 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     NAME,
     stationID,
   };
-  
+  console.log(elec);
   if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
     console.log(elec);
     // query to insert into the elec
