@@ -1,3 +1,4 @@
+/* eslint-disable vars-on-top */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable brace-style */
 const fileWriter = require('./fileWriter');
@@ -62,7 +63,8 @@ function wrtieToFiles(dataToWrite) {
 
   /** new station  */
   else {
-    let NAME = '';
+    // eslint-disable-next-line no-var
+    var NAME = '';
     dataToWrite.split(' ').map((item) => {
       item = item.replace('[', '');
       item = item.replace(']', '');
