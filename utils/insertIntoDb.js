@@ -39,6 +39,7 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.end((ConnectionEndErr) => {
       // The connection is terminated now
       if (ConnectionEndErr) {
+        console.log();
         console.log('=====================================================');
         console.log('connection has been closed albeit with an error');
         console.log('=====================================================');
@@ -73,6 +74,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the 2 meter table
     connection.query('INSERT INTO TwoMeterNode SET ?', node_2m, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
@@ -109,6 +112,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the 10 meter table
     connection.query('INSERT INTO TenMeterNode SET ?', node_10_meter, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
@@ -146,6 +151,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the ground table
     connection.query('INSERT INTO GroundNode SET ?', ground_node, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
@@ -176,6 +183,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the sink table
     connection.query('INSERT INTO SinkNode SET ?', sink_node, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
@@ -203,6 +212,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the general table
     connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
@@ -223,6 +234,8 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     // query to insert into the elec
     connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
       if (err) {
+        console.log();
+        console.log('error ocuured in insert query');
         console.log(err);
         closeConnection(connection);
       } else {
