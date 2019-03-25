@@ -1,6 +1,5 @@
 /* eslint-disable no-var */
 const mysql = require('mysql');
-const closeDbConnection = require('./closeDbConnection');
 
 function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
   // db init connetion
@@ -26,8 +25,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      callbackfunc(result[0].station_id, masterObjectCopy);
-      closeDbConnection(connection);
+      callbackfunc(result[0].station_id, masterObjectCopy, connection);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -49,8 +47,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
         jnj: 50,
       };
 
-      callbackfunc(STATION_NAMES[stationname], masterObjectCopy);
-      closeDbConnection(connection);
+      callbackfunc(STATION_NAMES[stationname], masterObjectCopy, connection);
     }
   });
 }

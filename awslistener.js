@@ -338,9 +338,9 @@ function receiveData(packet) {
 
       const masterObjectCopy = Object.assign({}, masterObject);
 
-      const hasAccess = (id, masterObjectCopy) => {
-        masterObjectCopy.stationID = id;
-        insertIntoDb(masterObjectCopy);
+      const hasAccess = (id, masterObjectCopyArg, connection) => {
+        masterObjectCopyArg.stationID = id;
+        insertIntoDb(masterObjectCopyArg, connection);
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;

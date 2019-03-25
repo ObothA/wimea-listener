@@ -1,29 +1,10 @@
 /* eslint-disable vars-on-top */
-const mysql = require('mysql');
 const closeConnection = require('./closeDbConnection');
 
 /* eslint-disable no-var */
 /* eslint-disable prefer-destructuring */
-const insertIntoDb = (masterObjectCopy) => {
-  // db init connetion
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'jmuhumuza',
-    password: 'joshua',
-    database: 'wdrDb',
-  });
+const insertIntoDb = (masterObjectCopy, connection) => {
 
-  // connect to the db
-  connection.connect((err) => {
-    if (err) {
-      console.log(err);
-      console.log('error connecting to the db!');
-    } else {
-      console.log('Connection to the db established!');
-    }
-  });
-
-  
   var RTC_T = masterObjectCopy.RTC_T;
   var NAME = masterObjectCopy.NAME;
   var E64 = masterObjectCopy.E64;
