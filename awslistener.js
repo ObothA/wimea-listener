@@ -339,6 +339,7 @@ function receiveData(packet) {
       });
       // close inner map
     
+      console.log(masterObject.NAME);
       /** responsible for linking */
       if (masterObject.NAME && masterObject.NAME.includes('-')) {
         masterObject.stationname = masterObject.NAME.split('-')[0];
