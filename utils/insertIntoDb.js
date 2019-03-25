@@ -36,16 +36,18 @@ const insertIntoDb = (masterObjectCopy, connection) => {
 
 
   function closeConnection(connection) {
-    connection.end((ConnectionEndErr) => {
-      // The connection is terminated now
-      if (ConnectionEndErr) {
-        console.log();
-        console.log('=====================================================');
-        console.log('connection has been closed albeit with an error');
-        console.log('=====================================================');
-        console.log(ConnectionEndErr);
-      }
-    });
+    // connection.end((ConnectionEndErr) => {
+    //   // The connection is terminated now
+    //   if (ConnectionEndErr) {
+    //     console.log();
+    //     console.log('=====================================================');
+    //     console.log('connection has been closed albeit with an error');
+    //     console.log('=====================================================');
+    //     console.log(ConnectionEndErr);
+    //   }
+    // });
+
+    connection.destroy();
   }
 
   if (NAME && NAME.toLowerCase().includes('2m')) {

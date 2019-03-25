@@ -72,14 +72,12 @@ function wrtieToFiles(dataToWrite) {
 
       /** handle names */
       if (item.includes('NAME')) {
-        console.log('item has name');
         NAME = item.split('=')[1];
         fileWriter(`${path}${NAME}.dat`, dataToWrite);
         NAME = '';
       }
 
       if (item.includes('TXT')) {
-        console.log('item has txt');
         NAME = item.split('=')[1];
         fileWriter(`${path}${NAME}.dat`, dataToWrite);
         NAME = '';
