@@ -1,4 +1,4 @@
-/* eslint-disable newline-per-chained-call */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              /* eslint-disable newline-per-chained-call */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
@@ -358,8 +358,9 @@ function receiveData(packet) {
       const masterObjectCopy = Object.assign({}, masterObject);
 
       const hasAccess = (id, masterObjectCopy) => {
+        console.log()
         masterObjectCopy.stationID = id;
-        // insertIntoDb(masterObjectCopy, connection);
+        insertIntoDb(masterObjectCopy, connection);
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
