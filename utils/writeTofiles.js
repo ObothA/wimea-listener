@@ -5,7 +5,6 @@ const fileWriter = require('./fileWriter');
 
 
 function wrtieToFiles(dataToWrite) {
-  console.log('write to files called.... ');
   //* * ***************************** */
   const path = '/var/www/html/awsmonitor/aws-monitor/public/stationsData/';
   if (dataToWrite.includes('byd-1')) {
