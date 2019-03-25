@@ -35,6 +35,18 @@ const insertIntoDb = (masterObjectCopy, connection) => {
   var stationID = masterObjectCopy.stationID;
 
 
+  function closeConnection(connection) {
+    connection.end((ConnectionEndErr) => {
+      // The connection is terminated now
+      if (ConnectionEndErr) {
+        console.log('=====================================================');
+        console.log('connection has been closed albeit with an error');
+        console.log('=====================================================');
+        console.log(ConnectionEndErr);
+      }
+    });
+  }
+
   if (NAME && NAME.toLowerCase().includes('2m')) {
     // object for the 2meter node
     const node_2m = {
@@ -62,6 +74,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO TwoMeterNode SET ?', node_2m, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
@@ -95,6 +110,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO TenMeterNode SET ?', node_10_meter, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
@@ -129,6 +147,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO GroundNode SET ?', ground_node, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
@@ -156,6 +177,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO SinkNode SET ?', sink_node, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
@@ -180,6 +204,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
@@ -197,19 +224,12 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
       if (err) {
         console.log(err);
+        closeConnection(connection);
+      } else {
+        closeConnection(connection);
       }
     });
   }
-  
-  // connection.end((err) => {
-  //   // The connection is terminated now
-  //   if (err) {
-  //     console.log('=====================================================');
-  //     console.log('connection has been closed albeit with an error');
-  //     console.log('=====================================================');
-  //     console.log(err);
-  //   }
-  // });
 };
 
 
