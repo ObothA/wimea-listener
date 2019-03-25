@@ -1,11 +1,33 @@
 /* eslint-disable no-var */
-function callback(connection, QUERY, masterObjectCopy, stationname, callbackfunc) {
+const mysql = require('mysql');
+const closeDbConnection = require('./closeDbConnection');
+
+function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
+  // db init connetion
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'jmuhumuza',
+    password: 'joshua',
+    database: 'wdrDb',
+  });
+
+  // connect to the db
+  connection.connect((err) => {
+    if (err) {
+      console.log(err);
+      console.log('error connecting to the db!');
+    } else {
+      console.log('Connection to the db established!');
+    }
+  });
+
 
   connection.query(QUERY, (queryError, result, fields) => {
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
       callbackfunc(result[0].station_id, masterObjectCopy);
+      closeDbConnection(connection);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -28,7 +50,7 @@ function callback(connection, QUERY, masterObjectCopy, stationname, callbackfunc
       };
 
       callbackfunc(STATION_NAMES[stationname], masterObjectCopy);
-      // callbackfunc();
+      closeDbConnection(connection);
     }
   });
 }

@@ -1,6 +1,29 @@
+/* eslint-disable vars-on-top */
+const mysql = require('mysql');
+const closeConnection = require('./closeDbConnection');
+
 /* eslint-disable no-var */
 /* eslint-disable prefer-destructuring */
-const insertIntoDb = (masterObjectCopy, connection) => {
+const insertIntoDb = (masterObjectCopy) => {
+  // db init connetion
+  const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'jmuhumuza',
+    password: 'joshua',
+    database: 'wdrDb',
+  });
+
+  // connect to the db
+  connection.connect((err) => {
+    if (err) {
+      console.log(err);
+      console.log('error connecting to the db!');
+    } else {
+      console.log('Connection to the db established!');
+    }
+  });
+
+  
   var RTC_T = masterObjectCopy.RTC_T;
   var NAME = masterObjectCopy.NAME;
   var E64 = masterObjectCopy.E64;
@@ -33,22 +56,6 @@ const insertIntoDb = (masterObjectCopy, connection) => {
   var UTC_TZ = masterObjectCopy.UTC_TZ;
   var stationname = masterObjectCopy.stationname;
   var stationID = masterObjectCopy.stationID;
-
-
-  function closeConnection(connection) {
-    // connection.end((ConnectionEndErr) => {
-    //   // The connection is terminated now
-    //   if (ConnectionEndErr) {
-    //     console.log();
-    //     console.log('=====================================================');
-    //     console.log('connection has been closed albeit with an error');
-    //     console.log('=====================================================');
-    //     console.log(ConnectionEndErr);
-    //   }
-    // });
-
-    connection.destroy();
-  }
 
   if (NAME && NAME.toLowerCase().includes('2m')) {
     // object for the 2meter node

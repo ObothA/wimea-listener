@@ -4,7 +4,6 @@
 /* eslint-disable no-var */
 
 const net = require('net');
-const mysql = require('mysql');
 const moment = require('moment');
 
 
@@ -49,24 +48,6 @@ console.log(`Server listening on ${HOST}:${PORT}`);
 
 
 function receiveData(packet) {
-  // db init connetion
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'jmuhumuza',
-    password: 'joshua',
-    database: 'wdrDb',
-  });
-
-  // connect to the db
-  connection.connect((err) => {
-    if (err) {
-      console.log(err);
-      console.log('error connecting to the db!');
-    } else {
-      console.log('Connection to the db established!');
-    }
-  });
-
   /** **** */
   /* variables to insert into the db */
   /** *** */
@@ -359,11 +340,11 @@ function receiveData(packet) {
 
       const hasAccess = (id, masterObjectCopy) => {
         masterObjectCopy.stationID = id;
-        insertIntoDb(masterObjectCopy, connection);
+        insertIntoDb(masterObjectCopy);
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
-      callback(connection, QUERY, masterObjectCopy, masterObjectCopy.stationname, hasAccess);
+      callback(QUERY, masterObjectCopy, masterObjectCopy.stationname, hasAccess);
       /** responsible for linking */
     }
   });
