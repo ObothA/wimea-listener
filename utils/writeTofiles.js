@@ -72,14 +72,18 @@ function wrtieToFiles(dataToWrite) {
       /** handle names */
       if (item.includes('NAME')) {
         NAME = item.split('=')[1];
-        fileWriter(`${path}${NAME}.dat`, dataToWrite);
-        NAME = '';
+        if (!NAME.includes('?')) {
+          fileWriter(`${path}${NAME}.dat`, dataToWrite);
+          NAME = '';
+        }
       }
 
       if (item.includes('TXT')) {
         NAME = item.split('=')[1];
-        fileWriter(`${path}${NAME}.dat`, dataToWrite);
-        NAME = '';
+        if (!NAME.includes('?')) {
+          fileWriter(`${path}${NAME}.dat`, dataToWrite);
+          NAME = '';
+        }
       }
     });
   }
