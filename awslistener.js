@@ -340,7 +340,9 @@ function receiveData(packet) {
 
       const hasAccess = (id, masterObjectCopyArg, pool) => {
         masterObjectCopyArg.stationID = id;
-        insertIntoDb(masterObjectCopyArg, pool);
+        if (masterObjectCopyArg.stationID) {
+          insertIntoDb(masterObjectCopyArg, pool);
+        }
       };
 
       const QUERY = `SELECT station_id FROM stations WHERE StationName = '${masterObjectCopy.stationname}'`;
