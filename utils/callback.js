@@ -4,7 +4,7 @@ const mysql = require('mysql');
 function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
   // db init connetions pool
   const pool = mysql.createPool({
-    connectionLimit: 50,
+    connectionLimit: 30,
     host: 'localhost',
     user: 'jmuhumuza',
     password: 'joshua',
