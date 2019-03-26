@@ -72,7 +72,7 @@ function wrtieToFiles(dataToWrite) {
       /** handle names */
       if (item.includes('NAME')) {
         NAME = item.split('=')[1];
-        if (!NAME.includes('?')) {
+        if (NAME && !NAME.includes('?')) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
           NAME = '';
         }
@@ -80,7 +80,7 @@ function wrtieToFiles(dataToWrite) {
 
       if (item.includes('TXT')) {
         NAME = item.split('=')[1];
-        if (!NAME.includes('?')) {
+        if (NAME && !NAME.includes('?')) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
           NAME = '';
         }
