@@ -2,30 +2,20 @@
 const mysql = require('mysql');
 
 function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
-  // db init connetion
-  const connection = mysql.createConnection({
+  // db init connetions pool
+  const pool = mysql.createPool({
+    connectionLimit: 50,
     host: 'localhost',
     user: 'jmuhumuza',
     password: 'joshua',
     database: 'wdrDb',
   });
 
-  // connect to the db
-  connection.connect((err) => {
-    if (err) {
-      console.log(err);
-      console.log('error connecting to the db!');
-    } else {
-      console.log('Connection to the db established!');
-    }
-  });
-
-
-  connection.query(QUERY, (queryError, result, fields) => {
+  pool.query(QUERY, (queryError, result, fields) => {
     if (queryError) {
       throw queryError;
     } else if (result.length > 0) {
-      callbackfunc(result[0].station_id, masterObjectCopy, connection);
+      callbackfunc(result[0].station_id, masterObjectCopy, pool);
     } else {
       const STATION_NAMES = {
         myg: 54,
@@ -47,7 +37,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
         jnj: 50,
       };
 
-      callbackfunc(STATION_NAMES[stationname], masterObjectCopy, connection);
+      callbackfunc(STATION_NAMES[stationname], masterObjectCopy, pool);
     }
   });
 }

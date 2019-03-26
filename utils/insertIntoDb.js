@@ -3,8 +3,7 @@ const closeConnection = require('./closeDbConnection');
 
 /* eslint-disable no-var */
 /* eslint-disable prefer-destructuring */
-const insertIntoDb = (masterObjectCopy, connection) => {
-
+const insertIntoDb = (masterObjectCopy, pool) => {
   var RTC_T = masterObjectCopy.RTC_T;
   var NAME = masterObjectCopy.NAME;
   var E64 = masterObjectCopy.E64;
@@ -62,14 +61,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
   
   
     // query to insert into the 2 meter table
-    connection.query('INSERT INTO TwoMeterNode SET ?', node_2m, (err, res) => {
+    pool.query('INSERT INTO TwoMeterNode SET ?', node_2m, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
@@ -100,14 +94,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     };
   
     // query to insert into the 10 meter table
-    connection.query('INSERT INTO TenMeterNode SET ?', node_10_meter, (err, res) => {
+    pool.query('INSERT INTO TenMeterNode SET ?', node_10_meter, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
@@ -139,14 +128,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
   
   
     // query to insert into the ground table
-    connection.query('INSERT INTO GroundNode SET ?', ground_node, (err, res) => {
+    pool.query('INSERT INTO GroundNode SET ?', ground_node, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
@@ -171,14 +155,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
     };
   
     // query to insert into the sink table
-    connection.query('INSERT INTO SinkNode SET ?', sink_node, (err, res) => {
+    pool.query('INSERT INTO SinkNode SET ?', sink_node, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
@@ -200,14 +179,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
   
   if ((NAME && V_BAT && SOC) || (NAME && REPS)) {
     // query to insert into the general table
-    connection.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
+    pool.query('INSERT INTO GeneralTable SET ?', general_table, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
@@ -222,14 +196,9 @@ const insertIntoDb = (masterObjectCopy, connection) => {
 
   if (NAME && V_BAT && SOC && NAME.toLowerCase().includes('elec')) {
     // query to insert into the elec
-    connection.query('INSERT INTO Electron SET ?', elec, (err, res) => {
+    pool.query('INSERT INTO Electron SET ?', elec, (err, res) => {
       if (err) {
-        // console.log();
-        // console.log('error ocuured in insert query');
-        console.log(err);
-        // closeConnection(connection);
-      } else {
-        closeConnection(connection);
+        throw err;
       }
     });
   }
