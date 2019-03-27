@@ -72,7 +72,8 @@ function wrtieToFiles(dataToWrite) {
       /** handle names */
       if (item.includes('NAME')) {
         NAME = item.split('=')[1];
-        if (NAME && !NAME.includes('?')) {
+        /** use regex to macth only alphabet, numbers, - and _ */
+        if (NAME && !NAME.match(/[^a-z,0-9,_,-]/gi)) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
           NAME = '';
         }
@@ -80,7 +81,8 @@ function wrtieToFiles(dataToWrite) {
 
       if (item.includes('TXT')) {
         NAME = item.split('=')[1];
-        if (NAME && !NAME.includes('?')) {
+        /** use regex to macth only alphabet, numbers, - and _ * to avoid corrupt names */
+        if (NAME && !NAME.match(/[^a-z,0-9,_,-]/gi)) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
           NAME = '';
         }
