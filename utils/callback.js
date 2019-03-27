@@ -18,6 +18,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
       callbackfunc(result[0].station_id, masterObjectCopy, pool);
     } else {
       const STATION_NAMES = {
+        // ebb: 55,
         myg: 54,
         makg3: 53,
         kml: 52,
