@@ -80,14 +80,16 @@ function wrtieToFiles(dataToWrite) {
 
         /** handle stations with number eg byd_1 */
         if (NAME && NAME.includes('-')) {
+          var origName = NAME;
           NAME = NAME.split('-')[0];
-          var stationNumber = NAME.split('-')[1];
+          var stationNumber = origName.split('-')[1];
           if (!isNaN(stationNumber)) {
             NAME = `${NAME}-${stationNumber}`;
           }
         } else if (NAME && NAME.includes('_')) {
+          var origName1 = NAME;
           NAME = NAME.split('_')[0];
-          var stationNumber2 = NAME.split('_')[1];
+          var stationNumber2 = origName1.split('_')[1];
           if (!isNaN(stationNumber2)) {
             NAME = `${NAME}_${stationNumber2}`;
           }
