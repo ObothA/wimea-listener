@@ -105,8 +105,9 @@ function wrtieToFiles(dataToWrite) {
 
         /** handle stations with number eg byd_1 */
         if (NAME && NAME.includes('-')) {
+          var origName2 = NAME;
           NAME = NAME.split('-')[0];
-          var stationNumberTXT = NAME.split('-')[1];
+          var stationNumberTXT = origName2.split('-')[1];
           console.log(stationNumberTXT);
           console.log(NAME);
           if (!isNaN(stationNumberTXT)) {
@@ -114,8 +115,9 @@ function wrtieToFiles(dataToWrite) {
             console.log(NAME);
           }
         } else if (NAME && NAME.includes('_')) {
+          var origName2TXT = NAME;
           NAME = NAME.split('_')[0];
-          var stationNumber2TXT = NAME.split('_')[1];
+          var stationNumber2TXT = origName2TXT.split('_')[1];
           console.log(stationNumber2TXT);
           console.log(NAME);
           if (!isNaN(stationNumber2TXT)) {
