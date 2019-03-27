@@ -110,21 +110,15 @@ function wrtieToFiles(dataToWrite) {
           var origName2 = NAME;
           NAME = NAME.split('-')[0];
           var stationNumberTXT = origName2.split('-')[1];
-          console.log(stationNumberTXT);
-          console.log(NAME);
           if (!isNaN(stationNumberTXT)) {
             NAME = `${NAME}-${stationNumberTXT}`;
-            console.log(NAME);
           }
         } else if (NAME && NAME.includes('_')) {
           var origName2TXT = NAME;
           NAME = NAME.split('_')[0];
           var stationNumber2TXT = origName2TXT.split('_')[1];
-          console.log(stationNumber2TXT);
-          console.log(NAME);
           if (!isNaN(stationNumber2TXT)) {
             NAME = `${NAME}_${stationNumber2TXT}`;
-            console.log(NAME);
           }
         }
 
