@@ -15,8 +15,8 @@ function wrtieToFiles(dataToWrite) {
     fileWriter(`${path}buyende_2.dat`, dataToWrite);
   }
 
-  else if (dataToWrite.includes('ebb')) {
-    fileWriter(`${path}entebbe.dat`, dataToWrite);
+  else if (dataToWrite.includes('ebbg3-sink')) {
+    fileWriter(`${path}kamuli.dat`, dataToWrite);
   }
 
   else if (dataToWrite.includes('jja')) {
@@ -53,6 +53,10 @@ function wrtieToFiles(dataToWrite) {
   }
 
   else if (dataToWrite.includes('fos')) {
+    fileWriter(`${path}fos.dat`, dataToWrite);
+  }
+
+  else if (dataToWrite.includes('ebb')) {
     fileWriter(`${path}fos.dat`, dataToWrite);
   }
 
