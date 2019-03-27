@@ -107,6 +107,7 @@ function wrtieToFiles(dataToWrite) {
         if (NAME && NAME.includes('-')) {
           NAME = NAME.split('-')[0];
           var stationNumberTXT = NAME.split('-')[1];
+          console.log(stationNumberTXT);
           console.log(NAME);
           if (!isNaN(stationNumberTXT)) {
             NAME = `${NAME}-${stationNumberTXT}`;
@@ -115,6 +116,7 @@ function wrtieToFiles(dataToWrite) {
         } else if (NAME && NAME.includes('_')) {
           NAME = NAME.split('_')[0];
           var stationNumber2TXT = NAME.split('_')[1];
+          console.log(stationNumber2TXT);
           console.log(NAME);
           if (!isNaN(stationNumber2TXT)) {
             NAME = `${NAME}_${stationNumber2TXT}`;
