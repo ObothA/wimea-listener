@@ -102,6 +102,22 @@ function wrtieToFiles(dataToWrite) {
 
       if (item.includes('TXT')) {
         NAME = item.split('=')[1];
+
+        /** handle stations with number eg byd_1 */
+        if (NAME && NAME.includes('-')) {
+          NAME = NAME.split('-')[0];
+          var stationNumberTXT = NAME.split('-')[1];
+          if (!isNaN(stationNumberTXT)) {
+            NAME = `${NAME}-${stationNumberTXT}`;
+          }
+        } else if (NAME && NAME.includes('_')) {
+          NAME = NAME.split('_')[0];
+          var stationNumber2TXT = NAME.split('_')[1];
+          if (!isNaN(stationNumber2TXT)) {
+            NAME = `${NAME}_${stationNumber2TXT}`;
+          }
+        }
+
         /** use regex to macth only alphabet, numbers, - and _ * to avoid corrupt names */
         if (NAME && !NAME.match(/[^a-z,0-9,_,-]/gi)) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
