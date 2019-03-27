@@ -57,7 +57,7 @@ function wrtieToFiles(dataToWrite) {
   }
 
   else if (dataToWrite.includes('ebb')) {
-    fileWriter(`${path}fos.dat`, dataToWrite);
+    fileWriter(`${path}entebbe.dat`, dataToWrite);
   }
 
   // test gateway
