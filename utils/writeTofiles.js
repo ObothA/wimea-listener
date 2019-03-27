@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 /* eslint-disable vars-on-top */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable brace-style */
@@ -76,6 +77,22 @@ function wrtieToFiles(dataToWrite) {
       /** handle names */
       if (item.includes('NAME')) {
         NAME = item.split('=')[1];
+
+        /** handle stations with number eg byd_1 */
+        if (NAME && NAME.includes('-')) {
+          NAME = NAME.split('-')[0];
+          var stationNumber = NAME.split('-')[1];
+          if (!isNaN(stationNumber)) {
+            NAME = `${NAME}-${stationNumber}`;
+          }
+        } else if (NAME && NAME.includes('_')) {
+          NAME = NAME.split('_')[0];
+          var stationNumber2 = NAME.split('_')[1];
+          if (!isNaN(stationNumber2)) {
+            NAME = `${NAME}_${stationNumber2}`;
+          }
+        }
+
         /** use regex to macth only alphabet, numbers, - and _ */
         if (NAME && !NAME.match(/[^a-z,0-9,_,-]/gi)) {
           fileWriter(`${path}${NAME}.dat`, dataToWrite);
