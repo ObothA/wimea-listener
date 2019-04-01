@@ -26,6 +26,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
         'byd-2': 49,
         'byd-1': 48,
         /** duplicates to bend the rules for naming errors */
+
         jjag: 50,
         mak: 53,
         ebbg3: 52,
@@ -36,6 +37,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
         jjag3: 50,
         mygg3: 54,
         jnj: 50,
+        klrg3: 56,
       };
 
       callbackfunc(STATION_NAMES[stationname], masterObjectCopy, pool);
