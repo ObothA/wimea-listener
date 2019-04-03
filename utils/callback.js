@@ -27,6 +27,7 @@ function callback(QUERY, masterObjectCopy, stationname, callbackfunc) {
         'byd-1': 48,
         /** duplicates to bend the rules for naming errors */
 
+        lwgg3: 57,
         jjag: 50,
         mak: 53,
         ebbg3: 52,
